@@ -1,3 +1,8 @@
+# Dossiers à ignorer
 .vs/
-./ConcreteCS/obj
-./ConcreteCS/bin
+ConcreteCS/obj/
+ConcreteCS/bin/
+
+# Ignorer tous les fichiers dans les dossiers obj et bin
+**/obj/
+**/bin/
