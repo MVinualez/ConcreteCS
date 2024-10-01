@@ -27,7 +27,12 @@
         <!-- TabControl s'étend dans la deuxième colonne -->
         <TabControl Grid.Column="1" Margin="10,65,10,10">
             <TabItem Header="Calculs">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="59*"/>
+                        <ColumnDefinition Width="70*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
             </TabItem>
             <TabItem Header="Simulation">
                 <Grid Background="#FFE5E5E5"/>
