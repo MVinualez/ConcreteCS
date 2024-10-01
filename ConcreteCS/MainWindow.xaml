@@ -11,7 +11,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image HorizontalAlignment="Right" Height="55" Margin="0,0,674,369" VerticalAlignment="Bottom" Width="116" Source="/logo.png" Grid.ColumnSpan="2"/>
+        <Image HorizontalAlignment="Right" Height="55" Margin="0,0,681,374" VerticalAlignment="Bottom" Width="116" Source="/logo.png" Grid.ColumnSpan="2"/>
         <TabControl Grid.Column="1" HorizontalAlignment="Center" Height="369" Margin="0,65,0,0" VerticalAlignment="Top" Width="800">
             <TabItem Header="Calculs">
                 <Grid Background="#FFE5E5E5"/>
