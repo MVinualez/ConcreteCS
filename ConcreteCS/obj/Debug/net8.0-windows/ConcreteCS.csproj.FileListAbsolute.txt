@@ -18,3 +18,4 @@ C:\Users\mattheo\source\repos\ConcreteCS\ConcreteCS\obj\Debug\net8.0-windows\ref
 C:\Users\mattheo\source\repos\ConcreteCS\ConcreteCS\obj\Debug\net8.0-windows\ConcreteCS.pdb
 C:\Users\mattheo\source\repos\ConcreteCS\ConcreteCS\obj\Debug\net8.0-windows\ConcreteCS.genruntimeconfig.cache
 C:\Users\mattheo\source\repos\ConcreteCS\ConcreteCS\obj\Debug\net8.0-windows\ref\ConcreteCS.dll
+C:\Users\mattheo\source\repos\ConcreteCS\ConcreteCS\obj\Debug\net8.0-windows\ConcreteCS.sourcelink.json
