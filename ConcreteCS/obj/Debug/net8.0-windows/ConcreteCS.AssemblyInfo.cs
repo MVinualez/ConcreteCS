@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ConcreteCS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9c5636e91934412d6486b2420f0876f30a96d622")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+562a58d475be89541c270d8553ac91623d7c7322")]
 [assembly: System.Reflection.AssemblyProductAttribute("ConcreteCS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ConcreteCS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
