@@ -19,34 +19,31 @@ namespace ConcreteCS
         public MainWindow()
         {
             InitializeComponent();
+
+            // Définir les valeurs initiales pour les sliders
+            ChargeSlider.Value = 300;  // Valeur par défaut de la charge
+            PoulieSlider.Value = 3;     // Valeur par défaut du nombre de poulies
+            GearRatioSlider.Value = 1;  // Valeur par défaut du rapport d'engrenage
+
+            // Appeler la méthode pour calculer la force nécessaire
+            OnSliderValueChanged(null, null);
         }
 
-        private void OnSimulateClick(object sender, RoutedEventArgs e)
+        private void OnSliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double>? e)
         {
-            // Vérification des entrées
-            if (double.TryParse(ChargeInput.Text, out double chargeKg) &&
-                int.TryParse(PoulieInput.Text, out int nombrePoulies) &&
-                double.TryParse(GearRatioInput.Text, out double rapportEngrenage))
+            // Vérifie que les sliders sont correctement initialisés
+            if (ChargeSlider != null && PoulieSlider != null && GearRatioSlider != null && ResultForce != null)
             {
-                if (nombrePoulies > 0 && rapportEngrenage > 0)
-                {
-                    // Conversion de la charge en Newton (kg -> N)
-                    double charge = chargeKg * 9.81;
+                // Récupérer les valeurs des sliders
+                double charge = ChargeSlider.Value * 9.81; // Convertir la charge en Newton (kg -> N)
+                int nombrePoulies = (int)PoulieSlider.Value;
+                double rapportEngrenage = GearRatioSlider.Value;
 
-                    // Calcul de la force nécessaire (sans frottements)
-                    double forceNecessaire = (charge / nombrePoulies) / rapportEngrenage;
+                // Calcul de la force nécessaire (sans frottements)
+                double forceNecessaire = charge / (nombrePoulies * rapportEngrenage);
 
-                    // Affichage du résultat
-                    ResultForce.Text = forceNecessaire.ToString("F2");
-                }
-                else
-                {
-                    MessageBox.Show("Le nombre de poulies et le rapport d'engrenage doivent être supérieurs à 0", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Veuillez entrer des valeurs numériques valides", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Afficher le résultat
+                ResultForce.Text = forceNecessaire.ToString("F2");
             }
         }
     }
