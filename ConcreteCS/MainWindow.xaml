@@ -32,10 +32,18 @@
                         <ColumnDefinition Width="146"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <ListBox x:Name="listeCalculs">
+                    <ListBox x:Name="listeCalculs" SelectionMode="Single" SelectionChanged="listeCalculs_SelectionChanged">
                         <ListBoxItem>Longueur du bras</ListBoxItem>
                         <ListBoxItem>Diamètre d'engrenage</ListBoxItem>
                     </ListBox>
+
+                    <Grid Grid.Column="1" x:Name="bras" Visibility="Visible">
+                        <TextBlock Text="Calcul pour le bras" />
+                    </Grid>
+
+                    <Grid Grid.Column="1" x:Name="engrenage" Visibility="Collapsed">
+                        <TextBlock Text="Calcul pour l'engrenage" />
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Simulation">

@@ -20,5 +20,26 @@ namespace ConcreteCS
         {
             InitializeComponent();
         }
+
+        private void listeCalculs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (IsLoaded)
+            {
+
+                int selectedIndex = listeCalculs.SelectedIndex;
+
+                if (selectedIndex == 0)
+                {
+                    bras.Visibility = Visibility.Visible;
+                    engrenage.Visibility = Visibility.Collapsed;
+                }
+
+                else if (selectedIndex == 1)
+                {
+                    bras.Visibility = Visibility.Collapsed;
+                    engrenage.Visibility = Visibility.Visible;
+                }
+            }
+        }
     }
 }
