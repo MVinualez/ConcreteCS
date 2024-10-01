@@ -9,10 +9,23 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <!-- L'étoile permet de s'étendre -->
         </Grid.ColumnDefinitions>
-        <Image HorizontalAlignment="Right" Height="55" Margin="0,0,674,369" VerticalAlignment="Bottom" Width="116" Source="/logo.png" Grid.ColumnSpan="2"/>
-        <TabControl Grid.Column="1" HorizontalAlignment="Center" Height="369" Margin="0,65,0,0" VerticalAlignment="Top" Width="800">
+
+        <!-- Image centrée dans la première colonne -->
+        <Image 
+            Source="/logo.png" 
+            Grid.ColumnSpan="2" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Width="116" 
+            Height="55" 
+            Margin="5,5,0,0"
+        />
+
+        <!-- TabControl s'étend dans la deuxième colonne -->
+        <TabControl Grid.Column="1" Margin="10,65,10,10">
             <TabItem Header="Calculs">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
