@@ -88,6 +88,29 @@
                                 <lvc:Axis Title="Force (N)"/>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
+
+                        <!-- Graphique Poulie -->
+                        <lvc:CartesianChart x:Name="MyChart2" 
+                      Width="400" Height="160">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Nombre de poulies  " MinValue="1"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Force (N)"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+
+
+                        <!-- Graphique Engrenage -->
+                        <lvc:CartesianChart x:Name="MyChart3" 
+                       Width="400" Height="160">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Rrapport de réduction des engrenages " MinValue="1"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Force (N)"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
                     </StackPanel>
                 </Grid>
             </TabItem>
