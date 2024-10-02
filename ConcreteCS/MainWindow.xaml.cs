@@ -19,30 +19,32 @@ namespace ConcreteCS
         public MainWindow()
         {
             InitializeComponent();
+            SelectionNone.Visibility = Visibility.Visible;
         }
 
         private void listeCalculs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (IsLoaded)
             {
-
                 int selectedIndex = listeCalculs.SelectedIndex;
 
                 if (selectedIndex == 0)
                 {
-                    bras.Visibility = Visibility.Visible;
-                    engrenage.Visibility = Visibility.Collapsed;
+                    SelectionNone.Visibility = Visibility.Collapsed;
+                    Demultiplication.Visibility = Visibility.Visible;
+                    Bras.Visibility = Visibility.Collapsed;
                 }
 
                 else if (selectedIndex == 1)
                 {
-                    bras.Visibility = Visibility.Collapsed;
-                    engrenage.Visibility = Visibility.Visible;
+                    SelectionNone.Visibility = Visibility.Collapsed;
+                    Demultiplication.Visibility = Visibility.Collapsed;
+                    Bras.Visibility = Visibility.Visible;
                 }
             }
         }
 
-        private void OnSimulateClick(object sender, RoutedEventArgs e)
+        private void OnCalculateDemuClick(object sender, RoutedEventArgs e)
         {
             // Vérification des entrées
             if (double.TryParse(ChargeInput.Text, out double chargeKg) &&
