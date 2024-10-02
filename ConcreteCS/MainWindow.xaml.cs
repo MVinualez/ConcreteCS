@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using LiveCharts;
 using LiveCharts.Wpf;
 
@@ -60,8 +61,11 @@ namespace ConcreteCS
             // Vérification des entrées
             if (double.TryParse(ChargeInput.Text, out double chargeKg) &&
                 int.TryParse(PoulieInput.Text, out int nombrePoulies) &&
-                double.TryParse(GearRatioInput.Text, out double rapportEngrenage))
+                double.TryParse(GearRatioInput.Text, out double rapportEngrenage) &&
+                int.TryParse(AgeInput.Text, out int age))
             {
+                string genre = HommeRadioButton.IsChecked == true ? "Homme" : "Femme";
+
                 if (nombrePoulies > 0 && rapportEngrenage > 0)
                 {
                     // Conversion de la charge en Newton (kg -> N)
@@ -140,6 +144,67 @@ namespace ConcreteCS
                 UpdateChart(charge, nombrePoulies, rapportEngrenage);
                 UpdateChart2(charge, nombrePoulies);
                 UpdateChart3(charge, rapportEngrenage);
+
+                string genre = HommeRadioButton.IsChecked == true ? "Homme" : "Femme";
+                int ageOuvrier = 0;
+
+                if (int.TryParse(AgeInput.Text, out int age))
+                {
+                    if (genre == "Homme")
+                    {
+                        if (age >= 18 && age <= 45 && forceNecessaireKg > 25)
+                        {
+                            ShowAlert();
+                        }
+                        else if (age >= 45 && forceNecessaireKg > 20)
+                        {
+                            ShowAlert();
+                        }
+                    }
+
+                   else if (genre == "Femme")
+                    {
+                        if (age >= 18 && age <= 45 && forceNecessaireKg > 13)
+                        {
+                            ShowAlert();
+                        }
+                        else if (age >= 45 && forceNecessaireKg > 10)
+                        {
+                            ShowAlert();
+                        }
+                    }
+
+
+                }
+
+               
+                else 
+                {
+                    if(ageOuvrier >= 26 && ageOuvrier < 50 && forceNecessaireKg > 80)
+                    {
+                        MessageBox.Show($"Genre: {genre}, Âge: {age} ans - Tranche d'âge: 26-50 ans.");
+                    }
+                    
+                }
+
+            }
+        }
+
+        private Alerte alertWindow;
+
+        private async void ShowAlert()
+        {
+            if (alertWindow == null || !alertWindow.IsVisible)
+            {
+                // Créer une instance de la fenêtre d'alerte
+                alertWindow = new Alerte();
+                alertWindow.Show(); // Affiche l'alerte
+
+                await Task.Delay(3000);
+
+                // Fermer l'alerte
+                alertWindow.Close();
+                alertWindow = null; // Réinitialiser la variable
             }
         }
 
