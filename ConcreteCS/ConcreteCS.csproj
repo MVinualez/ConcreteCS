@@ -9,10 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="cs_team.png" />
     <None Remove="logo.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="cs_team.png" />
     <Resource Include="logo.png" />
   </ItemGroup>
 
