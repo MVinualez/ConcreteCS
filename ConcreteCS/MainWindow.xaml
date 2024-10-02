@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:local="clr-namespace:ConcreteCS"
         mc:Ignorable="d"
         Title="ConcreteCS" Height="450" Width="800" Icon="/cs_team.png">
@@ -73,6 +74,20 @@
                         <!-- Force nécessaire -->
                         <TextBlock>Force nécessaire pour soulever la charge (N)</TextBlock>
                         <TextBox x:Name="ResultForce" IsReadOnly="True" Width="150" Margin="0,0,0,10"/>
+                        <TextBlock>Force nécessaire pour soulever la charge (kg)</TextBlock>
+                        <TextBox x:Name="ResultForceKg" IsReadOnly="True" Width="150"/>
+
+                        <!-- Graphique combiné -->
+                        <TextBlock FontWeight="Bold" FontSize="14" Margin="0,20,0,10">Graphique de la force</TextBlock>
+                        <lvc:CartesianChart x:Name="MyChart" 
+                                            Width="400" Height="160">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Combiné du nombre de poulies et du rapport de réduction des engrenages " MinValue="1"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Force (N)"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
                     </StackPanel>
                 </Grid>
             </TabItem>
