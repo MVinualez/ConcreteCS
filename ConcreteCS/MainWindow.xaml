@@ -84,7 +84,7 @@
                                            Text="Rapport de réduction des engrenages" Height="15" Width="200"/>
                                 <TextBox x:Name="GearRatioInput" Grid.Row="3" Grid.Column="1" Width="150" Text="1"
                                            VerticalAlignment="Center" HorizontalAlignment="Left" Height="17"/>
-
+                                
                                 <!-- Bouton pour démarrer la simulation -->
                                 <Button Grid.Row="4" Grid.Column="0" Content="Calculer la force nécessaire"
                                            Click="OnCalculateDemuClick" Margin="0,6,0,5" HorizontalAlignment="Left" Width="146"/>
@@ -143,7 +143,20 @@
                             <TextBlock>Rapport d'engrenage</TextBlock>
                             <Slider x:Name="GearRatioSlider" Minimum="1" Maximum="10" Value="1" Width="150" Margin="0,0,0,10" TickFrequency="0.5" IsSnapToTickEnabled="True" ValueChanged="OnSliderValueChanged"/>
                             <TextBlock Text="{Binding ElementName=GearRatioSlider, Path=Value, StringFormat='{}1:{0}'}"/>
+
+                            <!-- Choix du genre -->
+                            <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Genre" Height="16" Width="102"/>
+                            <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
+                                <RadioButton Name="HommeRadioButton" Content="Homme" GroupName="Genre" Margin="5"/>
+                                <RadioButton Name="FemmeRadioButton" Content="Femme" GroupName="Genre" Margin="5"/>
+                            </StackPanel>
+
+                            <!-- Âge -->
+                            <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Âge (années)" Height="16" Width="102"/>
+                            <TextBox x:Name="AgeInput" Grid.Row="5" Grid.Column="1" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" Height="18"/>
                         </StackPanel>
+
+                        
 
                         <!-- Affichage des résultats -->
                         <StackPanel Grid.Column="1" HorizontalAlignment="Left">
