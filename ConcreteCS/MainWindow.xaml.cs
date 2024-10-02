@@ -216,7 +216,7 @@ namespace ConcreteCS
             lineSeries.Values.Clear(); // Efface les anciennes données
 
             // Ajoute les forces calculées au graphique
-            for (int pulleys = 1; pulleys <= nombrePoulies; pulleys++)
+            for (int pulleys = 1; pulleys <= nombrePoulies+1; pulleys++)
             {
                 double force = (charge / pulleys) / rapportEngrenage;
                 lineSeries.Values.Add(force);
@@ -235,7 +235,7 @@ namespace ConcreteCS
             lineSeries.Values.Clear(); // Efface les anciennes données
 
             // Ajoute les forces calculées au graphique
-            for (int pulleys = 1; pulleys <= nombrePoulies; pulleys++)
+            for (int pulleys = 1; pulleys <= nombrePoulies+1; pulleys++)
             {
                 double force = (charge / pulleys) ;
                 lineSeries.Values.Add(force);
