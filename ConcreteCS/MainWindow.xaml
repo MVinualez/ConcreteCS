@@ -9,26 +9,33 @@
         Title="ConcreteCS" Height="450" Width="800" Icon="/cs_team.png">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <!-- Image principale en haut à gauche -->
 
-        <Image 
-            Source="/cs_team.png" 
-            Grid.ColumnSpan="2" 
-            HorizontalAlignment="Left" 
-            VerticalAlignment="Top" 
-            Width="55" 
-            Height="55" 
-            Margin="5,5,0,0"
-        />
+        <!-- Menu -->
+        <StackPanel Grid.Column="0" Background="#3b4252" VerticalAlignment="Stretch">
+
+            <Image Source="/cs_team.png" Width="60" Height="60" HorizontalAlignment="left" VerticalAlignment="Top" Margin="10"/>
+
+
+            <Button Content="Calculs" Background="#5e81ac" Foreground="White" Margin="10" Height="40" Click="OnCalculsClick"/>
+            <Button Content="Simulation" Background="#5e81ac" Foreground="White" Margin="10" Height="40" Click="OnSimulationClick"/>
+            <Button Content="Graphiques" Background="#5e81ac" Foreground="White" Margin="10" Height="40" Click="OnGraphClick"/>
+            <Button Content="Quitter" Background="#5e81ac" Foreground="White" Margin="10" Height="40" Click="OnQuitClick"/>
+
+            <!-- logo cesi -->
+            <StackPanel VerticalAlignment="Bottom">
+                <Image Source="/logo.png" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+            </StackPanel>
+        </StackPanel>
 
         <!-- TabControl qui s'agrandit -->
-        <TabControl Grid.Column="1" Margin="10,65,10,10">
+        <TabControl x:Name="MainTabControl" Grid.Column="1" Margin="0,-16,10,26" >
             <!-- Onglet Calculs -->
-            <TabItem Header="Calculs">
+            <TabItem Header="Calculs" Visibility="Hidden">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="175"/>
@@ -117,7 +124,7 @@
             </TabItem>
 
             <!-- Onglet Simulation -->
-            <TabItem Header="Simulation">
+            <TabItem Header="Simulation" Visibility="Hidden">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                     <Grid Margin="10">
                         <Grid.ColumnDefinitions>
