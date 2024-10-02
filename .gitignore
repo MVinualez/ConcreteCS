@@ -2,7 +2,9 @@
 .vs/
 ConcreteCS/obj/
 ConcreteCS/bin/
+ConcreteCS/Properties/
 
 # Ignorer tous les fichiers dans les dossiers obj et bin
 **/obj/
 **/bin/
+**/Properties/
