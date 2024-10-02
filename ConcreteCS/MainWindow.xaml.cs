@@ -71,7 +71,7 @@ namespace ConcreteCS
                     double forceNecessaire = (charge / nombrePoulies) / rapportEngrenage;
 
                     // Affichage du résultat
-                    ResultForce.Text = forceNecessaire.ToString("F2");
+                    ResultForceCalculs.Text = forceNecessaire.ToString("F2");
                 }
                 else
                 {
