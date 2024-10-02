@@ -18,6 +18,8 @@ namespace ConcreteCS
         public MainWindow()
         {
             InitializeComponent();
+            SelectionNone.Visibility = Visibility.Visible;
+            
             InitializeChart(); //Cumul
             InitializeChart2(); //Poulie
             InitializeChart3(); //Engrenage
@@ -29,6 +31,57 @@ namespace ConcreteCS
 
             // Appeler la méthode pour calculer la force nécessaire
             OnSliderValueChanged(null, null);
+        }
+
+        private void listeCalculs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (IsLoaded)
+            {
+                int selectedIndex = listeCalculs.SelectedIndex;
+
+                if (selectedIndex == 0)
+                {
+                    SelectionNone.Visibility = Visibility.Collapsed;
+                    Demultiplication.Visibility = Visibility.Visible;
+                    Bras.Visibility = Visibility.Collapsed;
+                }
+
+                else if (selectedIndex == 1)
+                {
+                    SelectionNone.Visibility = Visibility.Collapsed;
+                    Demultiplication.Visibility = Visibility.Collapsed;
+                    Bras.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        private void OnCalculateDemuClick(object sender, RoutedEventArgs e)
+        {
+            // Vérification des entrées
+            if (double.TryParse(ChargeInput.Text, out double chargeKg) &&
+                int.TryParse(PoulieInput.Text, out int nombrePoulies) &&
+                double.TryParse(GearRatioInput.Text, out double rapportEngrenage))
+            {
+                if (nombrePoulies > 0 && rapportEngrenage > 0)
+                {
+                    // Conversion de la charge en Newton (kg -> N)
+                    double charge = chargeKg * 9.81;
+
+                    // Calcul de la force nécessaire (sans frottements)
+                    double forceNecessaire = (charge / nombrePoulies) / rapportEngrenage;
+
+                    // Affichage du résultat
+                    ResultForce.Text = forceNecessaire.ToString("F2");
+                }
+                else
+                {
+                    MessageBox.Show("Le nombre de poulies et le rapport d'engrenage doivent être supérieurs à 0", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez entrer des valeurs numériques valides", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void InitializeChart()
