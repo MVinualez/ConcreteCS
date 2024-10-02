@@ -32,7 +32,29 @@ namespace ConcreteCS
             // Appeler la méthode pour calculer la force nécessaire
             OnSliderValueChanged(null, null);
         }
+        private void OnCalculsClick(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedIndex = 0; // Select the Calculs tab
+            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
+        }
 
+        private void OnSimulationClick(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedIndex = 1; // Select the Simulation tab
+            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
+        }
+
+        private void OnGraphClick(object sender, RoutedEventArgs e)
+        {
+            // Assuming you have a Graphs tab as well
+            MainTabControl.SelectedIndex = 2; // Adjust the index as necessary
+            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
+        }
+
+        private void OnQuitClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown(); // Exit the application
+        }
         private void listeCalculs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (IsLoaded)
