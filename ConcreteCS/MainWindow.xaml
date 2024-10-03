@@ -6,37 +6,86 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:local="clr-namespace:ConcreteCS"
         mc:Ignorable="d"
+
         Title="ConcreteCS" Height="450" Width="800" Icon="/cs_team.png">
+
+    <Window.Resources>
+        <!-- Style pour les texte-->
+        <Style x:Key="TabButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            
+            <Setter Property="BorderBrush" Value="#0E1425"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="#0E1425"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </DataTrigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2E4053"/>
+                
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="150"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <!-- Image principale en haut à gauche -->
+     
 
         <!-- Menu -->
-        <StackPanel Grid.Column="0" Background="#3b4252" VerticalAlignment="Stretch">
-            <!-- logo concreteCS -->
-            <Image Source="/cs_team.png" Width="60" Height="60" HorizontalAlignment="center" VerticalAlignment="Top" Margin="10"/>
+        <Border BorderBrush="#212f3d" BorderThickness="2">
+            <StackPanel Grid.Column="0" Background="#10172b" VerticalAlignment="Stretch">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-            <!-- Bouton pour les onglets -->
-            <Button Content="Calculs" Background="#5e81ac" Foreground="White" Margin="10" Height="40" Click="OnCalculsClick"/>
-            <Button Content="Simulation" Background="#5e81ac" Foreground="White" Margin="10" Height="40" Click="OnSimulationClick"/>
-            <Button Content="Graphiques" Background="#5e81ac" Foreground="White" Margin="10" Height="40" Click="OnGraphClick"/>
-            <Button Content="Quitter" Background="#5e81ac" Foreground="White" Margin="10" Height="40" VerticalAlignment="Bottom" Click="OnQuitClick"/>
+                    <!-- logo concreteCS -->
+                    <Rectangle Width="30" Height="30" RadiusX="50" RadiusY="50" Grid.Column="0">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="/cs_team.png"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,-10" Grid.Column="1" Foreground="White"><Run Language="fr-fr" Text="ConcreteCS"/><LineBreak/><Run Language="fr-fr"/></TextBlock>
+                </Grid>
 
-            <!-- logo cesi -->
-            <StackPanel VerticalAlignment="Bottom">
-                <Image Source="/logo.png" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+                <!-- Bouton pour les onglets -->
+                <Button Content="Calculs" Style="{StaticResource TabButtonStyle}"  Margin=" 3 ,2,3,2" Height="auto" Click="OnCalculsClick"/>
+                <Button Content="Simulation" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" Click="OnSimulationClick"/>
+                <Button Content="Graphiques" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" Click="OnGraphClick"/>
+                <Button Content="Quitter" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" VerticalAlignment="Bottom" Click="OnQuitClick"/>
+
+
+                <TextBlock Height="1" TextWrapping="Wrap" Text="TextBlock" Width="2"/>
             </StackPanel>
-        </StackPanel>
-
+        </Border>
         <!-- TabControl qui s'agrandit -->
-        <TabControl x:Name="MainTabControl" Grid.Column="1" Margin="0,-16,10,26" >
+        <TabControl x:Name="MainTabControl" Grid.Column="1" Margin="0,-16,10,26" SelectionChanged="MainTabControl_SelectionChanged" >
             <!-- Onglet Calculs -->
             <TabItem Header="Calculs" Visibility="Hidden">
-                <Grid Background="#FFE5E5E5">
+                <Grid Background="white">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="175"/>
                         <ColumnDefinition/>
@@ -112,8 +161,8 @@
                     <Grid Grid.Column="1" x:Name="Bras" Visibility="Collapsed">
                         <TextBlock Text="Actuellement indisponible." />
                     </Grid>
-                  
-                   
+
+
                 </Grid>
             </TabItem>
 
@@ -197,5 +246,9 @@
                 </ScrollViewer>
             </TabItem>
         </TabControl>
+        <!-- logo cesi -->
+        <StackPanel VerticalAlignment="Bottom">
+            <Image Source="/logo.png" Width="50" Height="auto" HorizontalAlignment="left" VerticalAlignment="Bottom" Margin="10"/>
+        </StackPanel>
     </Grid>
 </Window>

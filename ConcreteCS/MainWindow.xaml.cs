@@ -77,6 +77,8 @@ namespace ConcreteCS
             }
         }
 
+
+
         private void OnCalculateDemuClick(object sender, RoutedEventArgs e)
         {
             // Vérification des entrées
@@ -219,6 +221,11 @@ namespace ConcreteCS
             // Met à jour la dernière force dans le TextBox
             double forceNecessaire = (charge / rapportEngrenage);
             ResultForce.Text = forceNecessaire.ToString("F2") + " N";
+        }
+
+        private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
