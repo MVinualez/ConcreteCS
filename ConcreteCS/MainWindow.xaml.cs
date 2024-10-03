@@ -47,7 +47,29 @@ namespace ConcreteCS
             int nbPoulies = (int)PoulieSlider.Value;
             AfficherPoulies(nbPoulies);
         }
+        private void OnCalculsClick(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedIndex = 0; // Select the Calculs tab
+            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
+        }
 
+        private void OnSimulationClick(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedIndex = 1; // Select the Simulation tab
+            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
+        }
+
+        private void OnGraphClick(object sender, RoutedEventArgs e)
+        {
+            // Assuming you have a Graphs tab as well
+            MainTabControl.SelectedIndex = 2; // Adjust the index as necessary
+            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
+        }
+
+        private void OnQuitClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown(); // Exit the application
+        }
         private void listeCalculs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (IsLoaded)
@@ -59,16 +81,23 @@ namespace ConcreteCS
                     SelectionNone.Visibility = Visibility.Collapsed;
                     Demultiplication.Visibility = Visibility.Visible;
                     Bras.Visibility = Visibility.Collapsed;
-                }
-
-                else if (selectedIndex == 1)
+                    Fleche.Visibility = Visibility.Collapsed;
+                }else if (selectedIndex == 1)
                 {
                     SelectionNone.Visibility = Visibility.Collapsed;
                     Demultiplication.Visibility = Visibility.Collapsed;
                     Bras.Visibility = Visibility.Visible;
+                    Fleche.Visibility = Visibility.Collapsed;
+                }else if (selectedIndex == 2) {
+                    SelectionNone.Visibility = Visibility.Collapsed;
+                    Demultiplication.Visibility = Visibility.Collapsed;
+                    Bras.Visibility = Visibility.Collapsed;
+                    Fleche.Visibility = Visibility.Visible;
                 }
             }
         }
+
+
 
         private void OnCalculateDemuClick(object sender, RoutedEventArgs e)
         {
@@ -101,6 +130,30 @@ namespace ConcreteCS
                 MessageBox.Show("Veuillez entrer des valeurs numériques valides", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void OnCalculateFlecheClick(object sender, RoutedEventArgs e) {
+            // Remplacer les virgules par des points dans les entrées
+            string poidsText = PoidsInput.Text.Replace(',', '.');
+            string longueurText = LongueurInput.Text.Replace(',', '.');
+            string youngText = YoungInput.Text.Replace(',', '.');
+            string momentQuadratiqueText = MomentQuadratiqueInput.Text.Replace(',', '.');
+
+            // Vérification des entrées après avoir remplacé les virgules
+            if (double.TryParse(poidsText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double poidsKg) &&
+                double.TryParse(longueurText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double longueur) &&
+                double.TryParse(youngText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double young) &&
+                double.TryParse(momentQuadratiqueText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double momentQuadratique)) {
+
+                // Calcul de la flèche
+                double fleche = ((poidsKg * 9.81) * Math.Pow(longueur, 3)) / (3 * young * momentQuadratique);
+
+                // Affichage du résultat avec 5 chiffres après la virgule
+                ResultFlecheCalculs.Text = fleche.ToString("F5");
+            } else {
+                MessageBox.Show("Veuillez entrer des valeurs numériques valides", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
 
         private void InitializeChart()
         {
@@ -244,7 +297,7 @@ namespace ConcreteCS
             lineSeries.Values.Clear(); // Efface les anciennes données
 
             // Ajoute les forces calculées au graphique
-            for (int pulleys = 1; pulleys <= nombrePoulies; pulleys++)
+            for (int pulleys = 1; pulleys <= nombrePoulies+1; pulleys++)
             {
                 double force = (charge / pulleys) / rapportEngrenage;
                 lineSeries.Values.Add(force);
@@ -263,7 +316,7 @@ namespace ConcreteCS
             lineSeries.Values.Clear(); // Efface les anciennes données
 
             // Ajoute les forces calculées au graphique
-            for (int pulleys = 1; pulleys <= nombrePoulies; pulleys++)
+            for (int pulleys = 1; pulleys <= nombrePoulies+1; pulleys++)
             {
                 double force = (charge / pulleys) ;
                 lineSeries.Values.Add(force);
@@ -291,7 +344,7 @@ namespace ConcreteCS
             double forceNecessaire = (charge / rapportEngrenage);
             ResultForce.Text = forceNecessaire.ToString("F2") + " N";
         }
-
+        
         private void csvDownload_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
