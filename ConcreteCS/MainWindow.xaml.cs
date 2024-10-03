@@ -194,7 +194,7 @@ namespace ConcreteCS
                         }
                     }
 
-                   else if (genre == "Femme")
+                    else if (genre == "Femme")
                     {
                         if (age >= 18 && age <= 45 && forceNecessaireKg > 13)
                         {
@@ -205,11 +205,8 @@ namespace ConcreteCS
                             ShowAlert();
                         }
                     }
-
-
                 }
 
-               
                 else 
                 {
                     if(ageOuvrier >= 26 && ageOuvrier < 50 && forceNecessaireKg > 80)
@@ -307,101 +304,76 @@ namespace ConcreteCS
             AfficherPoulies(nbPoulies);
         }
 
-        // Affiche le bon nombre de poulies en fonction du slider
-        private void AfficherPoulies(int nbPoulies) {
-            // Nettoie le canvas en conservant la corde et la charge
-            LevageCanvas.Children.Clear();
-            LevageCanvas.Children.Add(Corde);
-            LevageCanvas.Children.Add(Charge);
-
-            double poulieY = 50; // Position verticale des poulies
-            double espacement = 100; // Espacement entre les poulies
-
-            // Ajoute dynamiquement le nombre de poulies sélectionné
-            for (int i = 0; i < nbPoulies; i++) {
-                Image poulie = new Image {
-                    Width = 60,
-                    Height = 60,
-                    Source = new BitmapImage(new Uri("poulie.png", UriKind.Relative))
-                };
-
-                // Positionne les poulies horizontalement
-                double poulieX = 100 + (i * espacement);
-                Canvas.SetLeft(poulie, poulieX);
-                Canvas.SetTop(poulie, poulieY);
-                LevageCanvas.Children.Add(poulie);
-
-                // Dessine des lignes entre les poulies
-                if (i > 0) // S'il y a déjà une poulie précédente
-                {
-                    Line ligne = new Line {
-                        Stroke = Brushes.Black,
-                        StrokeThickness = 2,
-                        X1 = poulieX - espacement + 30, // X de la poulie précédente (ajout d'un décalage)
-                        Y1 = poulieY + 30, // Y fixe au bas de la poulie
-                        X2 = poulieX + 30, // X de la poulie actuelle (ajout d'un décalage)
-                        Y2 = poulieY + 30 // Y fixe au bas de la poulie
-                    };
-
-                    LevageCanvas.Children.Add(ligne);
-                }
-            }
-
-            // Ajouter une ligne pour relier la dernière poulie à la corde
-            if (nbPoulies > 0) {
-                double lastPulleyX = 100 + ((nbPoulies - 1) * espacement);
-                Line lastLine = new Line {
-                    Stroke = Brushes.Black,
-                    StrokeThickness = 2,
-                    X1 = lastPulleyX + 30, // Position horizontale de la dernière poulie
-                    Y1 = poulieY + 30, // Position verticale de la dernière poulie
-                    X2 = lastPulleyX + 30, // Position horizontale de la corde
-                    Y2 = 100 // Hauteur à laquelle la corde est attachée (ajuste si nécessaire)
-                };
-                LevageCanvas.Children.Add(lastLine);
-
-                // Aligner la charge avec la dernière poulie
-                Canvas.SetLeft(Charge, lastPulleyX); // Aligne horizontalement avec la dernière poulie
-                Canvas.SetTop(Charge, poulieY + 30 + 10); // Position verticale juste en dessous de la dernière poulie (ajoute un petit décalage)
-
-                // Ajouter une ligne pour relier la charge à la corde
-                Line chargeToPulleyLine = new Line {
-                    Stroke = Brushes.Black,
-                    StrokeThickness = 2,
-                    X1 = lastPulleyX + 30, // Position horizontale de la dernière poulie
-                    Y1 = poulieY + 30, // Position verticale de la dernière poulie
-                    X2 = lastPulleyX + 30, // Aligne horizontalement avec la charge
-                    Y2 = Canvas.GetTop(Charge) // Hauteur de la charge
-                };
-                LevageCanvas.Children.Add(chargeToPulleyLine);
-            }
-        }
-
-
         // Animation de la charge et de la corde
         private void Simuler_Click(object sender, RoutedEventArgs e) {
             int nbPoulies = (int)SliderPoulies.Value;
             double tempsLevage = nbPoulies * 1.0;  // Ajuste le temps de levage en fonction du nombre de poulies
 
             // Créer une animation pour déplacer la charge vers le haut
-            DoubleAnimation animationCharge = new DoubleAnimation {
+            DoubleAnimation animationChargeImpair = new DoubleAnimation {
                 From = 250,
                 To = 50,
                 Duration = TimeSpan.FromSeconds(tempsLevage)
             };
 
             // Créer une animation pour déplacer la corde en synchronisation avec la charge
-            DoubleAnimation animationCorde = new DoubleAnimation {
+            DoubleAnimation animationCordeImpair = new DoubleAnimation {
                 From = 250,
                 To = 50,
                 Duration = TimeSpan.FromSeconds(tempsLevage)
             };
 
             // Appliquer les animations
-            Charge.BeginAnimation(Canvas.TopProperty, animationCharge);
-            Corde.BeginAnimation(Line.Y1Property, animationCorde);
+            switch (nbPoulies)
+            {
+                case 1:
+                    Charge1.BeginAnimation(Canvas.TopProperty, animationCharge);
+                    CordeLast1.BeginAnimation(Line.Y1Property, animationCorde);
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+                case 5:
+
+                    break;
+            }
+        }
+
+        private void AfficherPoulies(int nombreDePoulies)
+        {
+            PulleyScene1.Visibility = Visibility.Hidden;
+            PulleyScene2.Visibility = Visibility.Hidden;
+            PulleyScene3.Visibility = Visibility.Hidden;
+            PulleyScene4.Visibility = Visibility.Hidden;
+            PulleyScene5.Visibility = Visibility.Hidden;
+
+            switch (nombreDePoulies)
+            {
+                case 1:
+                    PulleyScene1.Visibility = Visibility.Visible;
+                    break;
+                case 2:
+                    PulleyScene2.Visibility = Visibility.Visible;
+                    break;
+                case 3:
+                    PulleyScene3.Visibility = Visibility.Visible;
+                    break;
+                case 4:
+                    PulleyScene4.Visibility = Visibility.Visible;
+                    break;
+                case 5:
+                    PulleyScene5.Visibility = Visibility.Visible;
+                    break;
+            }
         }
     }
+
     public class LevageSysteme {
         private double masse = 300; // Masse de la charge en kg
         private double g = 9.81; // Accélération gravitationnelle en m/s^2
