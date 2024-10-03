@@ -43,7 +43,29 @@ namespace ConcreteCS
             int nbPoulies = (int)PoulieSlider.Value;
             AfficherPoulies(nbPoulies);
         }
+        private void OnCalculsClick(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedIndex = 0; // Select the Calculs tab
+            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
+        }
 
+        private void OnSimulationClick(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedIndex = 1; // Select the Simulation tab
+            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
+        }
+
+        private void OnGraphClick(object sender, RoutedEventArgs e)
+        {
+            // Assuming you have a Graphs tab as well
+            MainTabControl.SelectedIndex = 2; // Adjust the index as necessary
+            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
+        }
+
+        private void OnQuitClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown(); // Exit the application
+        }
         private void listeCalculs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (IsLoaded)
@@ -226,7 +248,7 @@ namespace ConcreteCS
             lineSeries.Values.Clear(); // Efface les anciennes données
 
             // Ajoute les forces calculées au graphique
-            for (int pulleys = 1; pulleys <= nombrePoulies; pulleys++)
+            for (int pulleys = 1; pulleys <= nombrePoulies+1; pulleys++)
             {
                 double force = (charge / pulleys) / rapportEngrenage;
                 lineSeries.Values.Add(force);
@@ -245,7 +267,7 @@ namespace ConcreteCS
             lineSeries.Values.Clear(); // Efface les anciennes données
 
             // Ajoute les forces calculées au graphique
-            for (int pulleys = 1; pulleys <= nombrePoulies; pulleys++)
+            for (int pulleys = 1; pulleys <= nombrePoulies+1; pulleys++)
             {
                 double force = (charge / pulleys) ;
                 lineSeries.Values.Add(force);
