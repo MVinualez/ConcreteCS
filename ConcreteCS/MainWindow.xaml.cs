@@ -231,11 +231,8 @@ namespace ConcreteCS
                 alertWindow = new Alerte();
                 alertWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 alertWindow.Show(); 
-            }
-
-            if (compteurAlerte >= 2)
-            {
                 ShowButton();
+
             }
         }
 
