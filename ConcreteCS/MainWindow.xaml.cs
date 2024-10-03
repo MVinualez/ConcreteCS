@@ -175,7 +175,7 @@ namespace ConcreteCS
                         }
                     }
 
-                   else if (genre == "Femme")
+                    else if (genre == "Femme")
                     {
                         if (age >= 18 && age <= 45 && forceNecessaireKg > 13)
                         {
@@ -190,14 +190,14 @@ namespace ConcreteCS
 
                 }
 
-               
-                else 
+
+                else
                 {
-                    if(ageOuvrier >= 26 && ageOuvrier < 50 && forceNecessaireKg > 80)
+                    if (ageOuvrier >= 26 && ageOuvrier < 50 && forceNecessaireKg > 80)
                     {
                         MessageBox.Show($"Genre: {genre}, Âge: {age} ans - Tranche d'âge: 26-50 ans.");
                     }
-                    
+
                 }
 
             }
@@ -250,7 +250,7 @@ namespace ConcreteCS
             // Ajoute les forces calculées au graphique
             for (int pulleys = 1; pulleys <= nombrePoulies; pulleys++)
             {
-                double force = (charge / pulleys) ;
+                double force = (charge / pulleys);
                 lineSeries.Values.Add(force);
             }
 
@@ -276,157 +276,7 @@ namespace ConcreteCS
             double forceNecessaire = (charge / rapportEngrenage);
             ResultForce.Text = forceNecessaire.ToString("F2") + " N";
         }
-
-        private void csvDownload_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "CSV file (*.csv)|*.csv";
-            saveFileDialog.Title = "Enregistrer les calculs en CSV";
-            saveFileDialog.FileName = "force_calculations.csv";
-
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                // Récupérer la charge, le nombre de poulies et le rapport d'engrenage
-                double charge = ChargeSlider.Value * 9.81;
-                int nombrePoulies = (int)PoulieSlider.Value;
-                double rapportEngrenage = GearRatioSlider.Value;
-
-                // Créer le fichier CSV
-                using (StreamWriter sw = new StreamWriter(saveFileDialog.FileName))
-                {
-                    // Écrire les en-têtes des colonnes
-                    sw.WriteLine("Nombre de Poulies;Force (N);Rapport d'Engrenage;Force par Engrenage (N)");
-
-                    // Remplir les données pour chaque valeur de poulie
-                    for (int pulleys = 1; pulleys <= nombrePoulies; pulleys++)
-                    {
-                        // Calculer la force pour chaque poulie
-                        double forcePoulie = (charge / pulleys);
-                        double forceEngrenage = charge / (pulleys * rapportEngrenage);
-
-                        // Écrire les données dans le fichier CSV sous forme de ligne
-                        sw.WriteLine($"{pulleys};{forcePoulie:F2};{rapportEngrenage:F2};{forceEngrenage:F2}");
-                    }
-                }
-
-                MessageBox.Show("Le fichier CSV a été enregistré avec succès !");
-            } 
-        }
-
-        // Mise à jour du nombre de poulies et de la force nécessaire
-        private void SliderPoulies_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            int nbPoulies = (int)SliderPoulies.Value;  // Récupère la valeur du slider
-            LabelNbPoulies.Content = nbPoulies.ToString();  // Met à jour l'affichage du nombre de poulies
-            double force = levage.CalculerForce(nbPoulies);  // Calcule la force nécessaire
-            LabelForce.Content = $"{force:F2} N";  // Affiche la force calculée
-
-            // Met à jour le visuel des poulies sur le canvas
-            AfficherPoulies(nbPoulies);
-        }
-
-        // Affiche le bon nombre de poulies en fonction du slider
-        private void AfficherPoulies(int nbPoulies) {
-            // Nettoie le canvas en conservant la corde et la charge
-            LevageCanvas.Children.Clear();
-            LevageCanvas.Children.Add(Corde);
-            LevageCanvas.Children.Add(Charge);
-
-            double poulieY = 50; // Position verticale des poulies
-            double espacement = 100; // Espacement entre les poulies
-
-            // Ajoute dynamiquement le nombre de poulies sélectionné
-            for (int i = 0; i < nbPoulies; i++) {
-                Image poulie = new Image {
-                    Width = 60,
-                    Height = 60,
-                    Source = new BitmapImage(new Uri("poulie.png", UriKind.Relative))
-                };
-
-                // Positionne les poulies horizontalement
-                double poulieX = 100 + (i * espacement);
-                Canvas.SetLeft(poulie, poulieX);
-                Canvas.SetTop(poulie, poulieY);
-                LevageCanvas.Children.Add(poulie);
-
-                // Dessine des lignes entre les poulies
-                if (i > 0) // S'il y a déjà une poulie précédente
-                {
-                    Line ligne = new Line {
-                        Stroke = Brushes.Black,
-                        StrokeThickness = 2,
-                        X1 = poulieX - espacement + 30, // X de la poulie précédente (ajout d'un décalage)
-                        Y1 = poulieY + 30, // Y fixe au bas de la poulie
-                        X2 = poulieX + 30, // X de la poulie actuelle (ajout d'un décalage)
-                        Y2 = poulieY + 30 // Y fixe au bas de la poulie
-                    };
-
-                    LevageCanvas.Children.Add(ligne);
-                }
-            }
-
-            // Ajouter une ligne pour relier la dernière poulie à la corde
-            if (nbPoulies > 0) {
-                double lastPulleyX = 100 + ((nbPoulies - 1) * espacement);
-                Line lastLine = new Line {
-                    Stroke = Brushes.Black,
-                    StrokeThickness = 2,
-                    X1 = lastPulleyX + 30, // Position horizontale de la dernière poulie
-                    Y1 = poulieY + 30, // Position verticale de la dernière poulie
-                    X2 = lastPulleyX + 30, // Position horizontale de la corde
-                    Y2 = 100 // Hauteur à laquelle la corde est attachée (ajuste si nécessaire)
-                };
-                LevageCanvas.Children.Add(lastLine);
-
-                // Aligner la charge avec la dernière poulie
-                Canvas.SetLeft(Charge, lastPulleyX); // Aligne horizontalement avec la dernière poulie
-                Canvas.SetTop(Charge, poulieY + 30 + 10); // Position verticale juste en dessous de la dernière poulie (ajoute un petit décalage)
-
-                // Ajouter une ligne pour relier la charge à la corde
-                Line chargeToPulleyLine = new Line {
-                    Stroke = Brushes.Black,
-                    StrokeThickness = 2,
-                    X1 = lastPulleyX + 30, // Position horizontale de la dernière poulie
-                    Y1 = poulieY + 30, // Position verticale de la dernière poulie
-                    X2 = lastPulleyX + 30, // Aligne horizontalement avec la charge
-                    Y2 = Canvas.GetTop(Charge) // Hauteur de la charge
-                };
-                LevageCanvas.Children.Add(chargeToPulleyLine);
-
-            }
-        }
-
-        // Animation de la charge et de la corde
-        private void Simuler_Click(object sender, RoutedEventArgs e) {
-            int nbPoulies = (int)SliderPoulies.Value;
-            double tempsLevage = nbPoulies * 1.0;  // Ajuste le temps de levage en fonction du nombre de poulies
-
-            // Créer une animation pour déplacer la charge vers le haut
-            DoubleAnimation animationCharge = new DoubleAnimation {
-                From = 250,
-                To = 50,
-                Duration = TimeSpan.FromSeconds(tempsLevage)
-            };
-
-            // Créer une animation pour déplacer la corde en synchronisation avec la charge
-            DoubleAnimation animationCorde = new DoubleAnimation {
-                From = 250,
-                To = 50,
-                Duration = TimeSpan.FromSeconds(tempsLevage)
-            };
-
-            // Appliquer les animations
-            Charge.BeginAnimation(Canvas.TopProperty, animationCharge);
-            Corde.BeginAnimation(Line.Y1Property, animationCorde);
-        }
-    }
-    public class LevageSysteme {
-        private double masse = 300; // Masse de la charge en kg
-        private double g = 9.81; // Accélération gravitationnelle en m/s^2
-
-        // Calcul de la force nécessaire en fonction du nombre de poulies
-        public double CalculerForce(int nbPoulies) {
-            if (nbPoulies <= 0) return 0;
-            return (masse * g) / nbPoulies;
-        }
     }
 }
+
+
