@@ -59,7 +59,7 @@ namespace ConcreteCS
             MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
         }
 
-        private void OnGraphClick(object sender, RoutedEventArgs e)
+        private void OnAnimationClick(object sender, RoutedEventArgs e)
         {
             // Assuming you have a Graphs tab as well
             MainTabControl.SelectedIndex = 2; // Adjust the index as necessary
@@ -485,6 +485,11 @@ namespace ConcreteCS
             // Appliquer les animations
             Charge.BeginAnimation(Canvas.TopProperty, animationCharge);
             Corde.BeginAnimation(Line.Y1Property, animationCorde);
+        }
+
+        private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
     public class LevageSysteme {
