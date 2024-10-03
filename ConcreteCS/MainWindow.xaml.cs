@@ -115,6 +115,30 @@ namespace ConcreteCS
             }
         }
 
+        private void OnCalculateFlecheClick(object sender, RoutedEventArgs e) {
+            // Remplacer les virgules par des points dans les entrées
+            string poidsText = PoidsInput.Text.Replace(',', '.');
+            string longueurText = LongueurInput.Text.Replace(',', '.');
+            string youngText = YoungInput.Text.Replace(',', '.');
+            string momentQuadratiqueText = MomentQuadratiqueInput.Text.Replace(',', '.');
+
+            // Vérification des entrées après avoir remplacé les virgules
+            if (double.TryParse(poidsText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double poidsKg) &&
+                double.TryParse(longueurText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double longueur) &&
+                double.TryParse(youngText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double young) &&
+                double.TryParse(momentQuadratiqueText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double momentQuadratique)) {
+
+                // Calcul de la flèche
+                double fleche = ((poidsKg * 9.81) * Math.Pow(longueur, 3)) / (3 * young * momentQuadratique);
+
+                // Affichage du résultat avec 5 chiffres après la virgule
+                ResultFlecheCalculs.Text = fleche.ToString("F5");
+            } else {
+                MessageBox.Show("Veuillez entrer des valeurs numériques valides", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
         private void InitializeChart()
         {
             MyChart.Series = new SeriesCollection
@@ -217,7 +241,7 @@ namespace ConcreteCS
             }
         }
 
-        private Alerte alertWindow;
+        private Alerte? alertWindow;
 
         private async void ShowAlert()
         {
@@ -289,10 +313,6 @@ namespace ConcreteCS
             // Met à jour la dernière force dans le TextBox
             double forceNecessaire = (charge / rapportEngrenage);
             ResultForce.Text = forceNecessaire.ToString("F2") + " N";
-        }
-
-        private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-
         }
     }
 }
