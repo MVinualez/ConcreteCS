@@ -14,6 +14,7 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using System.IO;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 
 namespace ConcreteCS
@@ -203,21 +204,37 @@ namespace ConcreteCS
             }
         }
 
+        private void OpenLinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            string url = "https://www.inrs.fr/risques/activite-physique/ce-qu-il-faut-retenir.html";
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+
+        public void ShowButton()
+        {
+            OpenLinkButton.Visibility = Visibility.Visible; // Rendre le bouton visible
+        }
+
+        int compteurAlerte = 0;
         private Alerte alertWindow;
 
         private async void ShowAlert()
         {
+            compteurAlerte ++;
+
             if (alertWindow == null || !alertWindow.IsVisible)
             {
-                // Créer une instance de la fenêtre d'alerte
                 alertWindow = new Alerte();
-                alertWindow.Show(); // Affiche l'alerte
+                alertWindow.Show(); 
+            }
 
-                await Task.Delay(3000);
-
-                // Fermer l'alerte
-                alertWindow.Close();
-                alertWindow = null; // Réinitialiser la variable
+            if (compteurAlerte >= 2)
+            {
+                ShowButton();
             }
         }
 
