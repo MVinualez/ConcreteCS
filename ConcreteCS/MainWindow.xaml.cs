@@ -337,6 +337,7 @@ namespace ConcreteCS
             CordeLast22.BeginAnimation(Line.Y1Property, null);
             CordeLast31.BeginAnimation(Line.Y1Property, null);
             CordeLast32.BeginAnimation(Line.Y1Property, null);
+            CordeLast33.BeginAnimation(Line.Y1Property, null);
             CordeLast41.BeginAnimation(Line.Y1Property, null);
             CordeLast42.BeginAnimation(Line.Y1Property, null);
             CordeLast43.BeginAnimation(Line.Y1Property, null);
@@ -352,6 +353,7 @@ namespace ConcreteCS
             CordeLast22.Y1 = 180;
             CordeLast31.Y1 = 180;
             CordeLast32.Y1 = 180;
+            CordeLast33.Y1 = 216;
             CordeLast41.Y1 = 180;
             CordeLast42.Y1 = 180;
             CordeLast43.Y1 = 180;
@@ -363,9 +365,11 @@ namespace ConcreteCS
             CordeLast55.Y1 = 216;
 
             // Position des barres horizontales
+            HorizontalBar3.BeginAnimation(FrameworkElement.MarginProperty, null);
             HorizontalBar4.BeginAnimation(FrameworkElement.MarginProperty, null);
             HorizontalBar5.BeginAnimation(FrameworkElement.MarginProperty, null);
 
+            HorizontalBar3.Margin = new Thickness(HorizontalBar3.Margin.Left, HorizontalBar3.Margin.Top, HorizontalBar3.Margin.Right, 0);
             HorizontalBar4.Margin = new Thickness(HorizontalBar4.Margin.Left, HorizontalBar4.Margin.Top, HorizontalBar4.Margin.Right, 0);
             HorizontalBar5.Margin = new Thickness(HorizontalBar5.Margin.Left, HorizontalBar5.Margin.Top, HorizontalBar5.Margin.Right, 0);
         }
@@ -398,7 +402,7 @@ namespace ConcreteCS
                 Duration = TimeSpan.FromSeconds(tempsLevage)
             };
 
-            DoubleAnimation animationCorde5 = new DoubleAnimation
+            DoubleAnimation animationCordeSpecialEnd = new DoubleAnimation
             {
                 From = 216,
                 To = 100,
@@ -432,14 +436,19 @@ namespace ConcreteCS
                 case 3:
                     currentMargin = Charge3.Margin;
                     animationLevage.From = currentMargin;
-                    animationLevage.To = new Thickness(currentMargin.Left, 0, currentMargin.Right, 20);
+                    animationLevage.To = new Thickness(currentMargin.Left, 0, currentMargin.Right, 10);
                     Charge3.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
                     currentMargin = Poulie32.Margin;
                     animationLevage.From = currentMargin;
                     animationLevage.To = new Thickness(currentMargin.Left, 0, currentMargin.Right, 120);
                     Poulie32.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
+                    currentMargin = HorizontalBar3.Margin;
+                    animationLevage.From = currentMargin;
+                    animationLevage.To = new Thickness(currentMargin.Left, 100, currentMargin.Right, 0);
+                    HorizontalBar3.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
                     CordeLast31.BeginAnimation(Line.Y1Property, animationCordePair);
                     CordeLast32.BeginAnimation(Line.Y1Property, animationCordePair);
+                    CordeLast33.BeginAnimation(Line.Y1Property, animationCordeSpecialEnd);
                     break;
                 case 4:
                     currentMargin = Charge4.Margin;
@@ -484,7 +493,7 @@ namespace ConcreteCS
                     CordeLast52.BeginAnimation(Line.Y1Property, animationCordePair);
                     CordeLast53.BeginAnimation(Line.Y1Property, animationCordePair);
                     CordeLast54.BeginAnimation(Line.Y1Property, animationCordePair);
-                    CordeLast55.BeginAnimation(Line.Y1Property, animationCorde5);
+                    CordeLast55.BeginAnimation(Line.Y1Property, animationCordeSpecialEnd);
                     break;
             }
         }
