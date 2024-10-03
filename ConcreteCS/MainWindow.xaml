@@ -14,7 +14,7 @@
         <Style x:Key="TabButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="14"/>
-            
+
             <Setter Property="BorderBrush" Value="#0E1425"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Background" Value="#0E1425"/>
@@ -38,7 +38,7 @@
                 </DataTrigger>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#2E4053"/>
-                
+
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -51,10 +51,11 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="318*"/>
+            <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
 
-     
+
 
         <!-- Menu -->
         <Border BorderBrush="#212f3d" BorderThickness="2">
@@ -64,7 +65,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                  
+
                     <!-- logo concreteCS -->
                     <Rectangle Width="30" Height="30" RadiusX="50" RadiusY="50" Grid.Column="0">
                         <Rectangle.Fill>
@@ -77,7 +78,7 @@
                 <!-- Bouton pour les onglets -->
                 <Button Content="Calculs" Style="{StaticResource TabButtonStyle}"  Margin=" 3 ,2,3,2" Height="auto" Click="OnCalculsClick"/>
                 <Button Content="Simulation" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" Click="OnSimulationClick"/>
-                <Button Content="Graphiques" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" Click="OnGraphClick"/>
+                <Button Content="Animation" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" Click="OnAnimationClick"/>
                 <Button Content="Quitter" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" VerticalAlignment="Bottom" Click="OnQuitClick"/>
 
 
@@ -85,7 +86,7 @@
             </StackPanel>
         </Border>
         <!-- TabControl qui s'agrandit -->
-        <TabControl x:Name="MainTabControl" Grid.Column="1" Margin="0,-16,10,26">
+        <TabControl x:Name="MainTabControl" Grid.Column="1" Margin="0,-16,10,26" SelectionChanged="MainTabControl_SelectionChanged" Grid.ColumnSpan="2">
             <!-- Onglet Calculs -->
             <TabItem Header="Calculs" Visibility="Hidden">
                 <Grid Background="white">
@@ -182,6 +183,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
+
                         <!-- Variables du système -->
                         <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Variables du système" Height="19" Width="200"/>
 
@@ -265,7 +267,7 @@
                             <TextBox x:Name="ResultForce" IsReadOnly="True" Width="150" Margin="0,0,0,10"/>
                             <TextBlock>Force nécessaire pour soulever la charge (kg)</TextBlock>
                             <TextBox x:Name="ResultForceKg" IsReadOnly="True" Width="150"/>
-                            <Button x:Name="csvDownload"  Width="40" Height="20" Click="csvDownload_Click" Margin="0,5,0,0"> CSV </Button>
+                            <Button x:Name="csvDownload"  Width="40" Height="20" Click="csvDownload_Click" Margin="0,5,0,0">CSV</Button>
                             <!-- Ajout du bouton pour ouvrir un lien -->
                             <Button Name="OpenLinkButton" Content="En savoir plus" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Margin="0,10,0,20" Width="80" Height="20" Visibility="Collapsed"  Click="OpenLinkButton_Click"/>
 
@@ -308,7 +310,7 @@
                     </Grid>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="Animation" Margin="0,0,-2,0" Height="20" VerticalAlignment="Center">
+            <TabItem Header="Animation" Margin="0,0,-2,0" Height="20" VerticalAlignment="Center" Visibility="Hidden">
                 <Grid>
                     <!-- Curseur pour ajuster le nombre de poulies -->
                     <Slider x:Name="SliderPoulies" Minimum="1" Maximum="5" Value="1" TickFrequency="1" IsSnapToTickEnabled="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="10,10,0,0"/>
@@ -337,8 +339,8 @@
             </TabItem>
         </TabControl>
         <!-- logo cesi -->
-        <StackPanel VerticalAlignment="Bottom">
-            <Image Source="/logo.png" Width="50" Height="auto" HorizontalAlignment="left" VerticalAlignment="Bottom" Margin="10"/>
+        <StackPanel VerticalAlignment="Top" Margin="0,314,0,0">
+            <Image Source="/logo.png" Width="100" Height="auto" HorizontalAlignment="center" VerticalAlignment="Bottom" Margin="10"/>
         </StackPanel>
     </Grid>
 </Window>
