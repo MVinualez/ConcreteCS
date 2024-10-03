@@ -79,14 +79,15 @@
                 <Button Content="Calculs" Style="{StaticResource TabButtonStyle}"  Margin=" 3 ,2,3,2" Height="auto" Click="OnCalculsClick"/>
                 <Button Content="Graphique" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" Click="OnGraphClick"/>
                 <Button Content="Simulation" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" Click="OnSimulationClick"/>
-                <Button Content="Quitter" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" VerticalAlignment="Bottom" Click="OnQuitClick"/>
+                <Button Content="Animation" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" Click="OnAnimationClick"/>
+                <Button Content="Ouvrir les logs" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" VerticalAlignment="Bottom" Click="OnOpenLogClick"/>
 
 
                 <TextBlock Height="1" TextWrapping="Wrap" Text="TextBlock" Width="2"/>
             </StackPanel>
         </Border>
         <!-- TabControl qui s'agrandit -->
-        <TabControl x:Name="MainTabControl" Grid.Column="1" Margin="0,-16,10,26" SelectionChanged="MainTabControl_SelectionChanged" Grid.ColumnSpan="2">
+        <TabControl x:Name="MainTabControl" Grid.Column="1" Margin="0,-16,10,26" Grid.ColumnSpan="2">
             <!-- Onglet Calculs -->
             <TabItem Header="Calculs" Visibility="Hidden">
                 <Grid Background="white">
