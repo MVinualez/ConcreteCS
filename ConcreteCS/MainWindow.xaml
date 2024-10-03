@@ -165,7 +165,47 @@
                     </Grid>
 
                     <Grid Grid.Column="1" x:Name="Bras" Visibility="Collapsed" Grid.ColumnSpan="2">
-                        <TextBlock Text="Actuellement indisponible." />
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!-- Variables du système -->
+                            <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Variables du système" Height="19" Width="200"/>
+
+                            <!-- Poids de la charge -->
+                            <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Charge à soulever (kg)" Height="16" Width="150"/>
+                            <TextBox x:Name="PoidsInputMoment" Grid.Row="1" Grid.Column="1" Width="150" Text="300" VerticalAlignment="Center" HorizontalAlignment="Left" Height="18"/>
+
+                            <!-- Longueur du bras -->
+                            <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Longueur du bras" Height="16" Width="150"/>
+                            <TextBox x:Name="LongueurInputMoment" Grid.Row="2" Grid.Column="1" Width="150" Text="3" VerticalAlignment="Center" HorizontalAlignment="Left" Height="18"/>
+
+                            <!-- Module de Young -->
+                            <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Module de Young" Height="16" Width="150"/>
+                            <TextBox x:Name="YoungInputMoment" Grid.Row="3" Grid.Column="1" Width="150" Text="1" VerticalAlignment="Center" HorizontalAlignment="Left" Height="18"/>
+
+                            <!-- Bouton pour démarrer la simulation -->
+                            <Button Grid.Row="5" Grid.Column="1" Content="Calculer la flèche" Click="OnCalculateFlecheClickMoment" Margin="0,6,0,5" HorizontalAlignment="Left" Width="150"/>
+
+                            <!-- Résultat -->
+                            <TextBlock Grid.Row="6" Grid.Column="0" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Résultat" Height="19" Width="150"/>
+
+                            <!-- Flèche (N/m) -->
+                            <TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Flèche (N/m)" Height="16" Width="150"/>
+                            <TextBox Grid.Row="7" Grid.Column="1" Width="150" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="ResultFlecheCalculsMoment" Height="18"/>
+                        </Grid>
                     </Grid>
                     <Grid Grid.Column="1" x:Name="Fleche" Grid.ColumnSpan="2" Visibility="Collapsed">
                         <Grid Margin="10">
