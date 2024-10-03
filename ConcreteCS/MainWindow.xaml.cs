@@ -53,13 +53,13 @@ namespace ConcreteCS
             MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
         }
 
-        private void OnSimulationClick(object sender, RoutedEventArgs e)
+        private void OnGraphClick(object sender, RoutedEventArgs e)
         {
             MainTabControl.SelectedIndex = 1; // Select the Simulation tab
             MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
         }
 
-        private void OnAnimationClick(object sender, RoutedEventArgs e)
+        private void OnSimulationClick(object sender, RoutedEventArgs e)
         {
             // Assuming you have a Graphs tab as well
             MainTabControl.SelectedIndex = 2; // Adjust the index as necessary
