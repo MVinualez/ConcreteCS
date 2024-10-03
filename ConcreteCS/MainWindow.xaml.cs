@@ -11,6 +11,9 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using LiveCharts;
 using LiveCharts.Wpf;
+using System.IO;
+using Microsoft.Win32;
+
 
 namespace ConcreteCS
 {
@@ -263,5 +266,42 @@ namespace ConcreteCS
             double forceNecessaire = (charge / rapportEngrenage);
             ResultForce.Text = forceNecessaire.ToString("F2") + " N";
         }
+        private void csvDownload_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV file (*.csv)|*.csv";
+            saveFileDialog.Title = "Enregistrer les calculs en CSV";
+            saveFileDialog.FileName = "force_calculations.csv";
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                // Récupérer la charge, le nombre de poulies et le rapport d'engrenage
+                double charge = ChargeSlider.Value * 9.81;
+                int nombrePoulies = (int)PoulieSlider.Value;
+                double rapportEngrenage = GearRatioSlider.Value;
+
+                // Créer le fichier CSV
+                using (StreamWriter sw = new StreamWriter(saveFileDialog.FileName))
+                {
+                    // Écrire les en-têtes des colonnes
+                    sw.WriteLine("Nombre de Poulies;Force (N);Rapport d'Engrenage;Force par Engrenage (N)");
+
+                    // Remplir les données pour chaque valeur de poulie
+                    for (int pulleys = 1; pulleys <= nombrePoulies; pulleys++)
+                    {
+                        // Calculer la force pour chaque poulie
+                        double forcePoulie = (charge / pulleys);
+                        double forceEngrenage = charge / (pulleys * rapportEngrenage);
+
+                        // Écrire les données dans le fichier CSV sous forme de ligne
+                        sw.WriteLine($"{pulleys};{forcePoulie:F2};{rapportEngrenage:F2};{forceEngrenage:F2}");
+                    }
+                }
+
+                MessageBox.Show("Le fichier CSV a été enregistré avec succès !");
+            }
+        }
+
+
     }
 }

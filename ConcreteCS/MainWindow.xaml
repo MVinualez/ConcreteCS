@@ -167,11 +167,11 @@
                             <TextBox x:Name="ResultForce" IsReadOnly="True" Width="150" Margin="0,0,0,10"/>
                             <TextBlock>Force nécessaire pour soulever la charge (kg)</TextBlock>
                             <TextBox x:Name="ResultForceKg" IsReadOnly="True" Width="150"/>
+                            <Button x:Name="csvDownload"  Width="40" Height="20" Click="csvDownload_Click" Margin="0,5,0,0"> CSV </Button>
 
                             <!-- Graphique combiné -->
                             <TextBlock FontWeight="Bold" FontSize="14" Margin="0,20,0,10">Graphique de la force</TextBlock>
-                            <lvc:CartesianChart x:Name="MyChart" 
-                                            Width="400" Height="160">
+                            <lvc:CartesianChart x:Name="MyChart" Width="400" Height="160">
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Combiné du nombre de poulies et du rapport de réduction des engrenages " MinValue="1"/>
                                 </lvc:CartesianChart.AxisX>
