@@ -67,13 +67,18 @@ namespace ConcreteCS
                     SelectionNone.Visibility = Visibility.Collapsed;
                     Demultiplication.Visibility = Visibility.Visible;
                     Bras.Visibility = Visibility.Collapsed;
-                }
-
-                else if (selectedIndex == 1)
+                    Fleche.Visibility = Visibility.Collapsed;
+                }else if (selectedIndex == 1)
                 {
                     SelectionNone.Visibility = Visibility.Collapsed;
                     Demultiplication.Visibility = Visibility.Collapsed;
                     Bras.Visibility = Visibility.Visible;
+                    Fleche.Visibility = Visibility.Collapsed;
+                }else if (selectedIndex == 2) {
+                    SelectionNone.Visibility = Visibility.Collapsed;
+                    Demultiplication.Visibility = Visibility.Collapsed;
+                    Bras.Visibility = Visibility.Collapsed;
+                    Fleche.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -284,6 +289,10 @@ namespace ConcreteCS
             // Met à jour la dernière force dans le TextBox
             double forceNecessaire = (charge / rapportEngrenage);
             ResultForce.Text = forceNecessaire.ToString("F2") + " N";
+        }
+
+        private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+
         }
     }
 }

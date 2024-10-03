@@ -33,7 +33,7 @@
         </StackPanel>
 
         <!-- TabControl qui s'agrandit -->
-        <TabControl x:Name="MainTabControl" Grid.Column="1" Margin="0,-16,10,26" >
+        <TabControl x:Name="MainTabControl" Grid.Column="1" Margin="0,-16,10,26" SelectionChanged="MainTabControl_SelectionChanged" >
             <!-- Onglet Calculs -->
             <TabItem Header="Calculs" Visibility="Hidden">
                 <Grid Background="#FFE5E5E5">
@@ -44,6 +44,7 @@
                     <ListBox x:Name="listeCalculs" SelectionMode="Single" SelectionChanged="listeCalculs_SelectionChanged">
                         <ListBoxItem>Démultiplication d'un système</ListBoxItem>
                         <ListBoxItem>Longueur du bras</ListBoxItem>
+                        <ListBoxItem>Calcul de la flèche</ListBoxItem>
                     </ListBox>
 
                     <!-- Message lorsqu'aucune option n'est sélectionnée-->
@@ -112,8 +113,11 @@
                     <Grid Grid.Column="1" x:Name="Bras" Visibility="Collapsed">
                         <TextBlock Text="Actuellement indisponible." />
                     </Grid>
-                  
-                   
+
+                    <Grid Grid.Column="1" x:Name="Fleche" Visibility="Collapsed">
+                        <TextBlock Text="Actuellement indisponible." />
+                    </Grid>
+
                 </Grid>
             </TabItem>
 
