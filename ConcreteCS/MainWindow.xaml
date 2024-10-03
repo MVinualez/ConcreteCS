@@ -224,6 +224,10 @@
             </TabItem>
             <TabItem Header="Animation" Margin="0,0,-2,0" Height="20" VerticalAlignment="Center">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     <!-- Curseur pour ajuster le nombre de poulies -->
                     <Slider x:Name="SliderPoulies" Minimum="1" Maximum="5" Value="1" TickFrequency="1" IsSnapToTickEnabled="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="139" Margin="10,10,0,0"/>
                     <Label Content="Nombre de poulies :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0"/>
@@ -231,25 +235,28 @@
 
                     <!-- Affichage de la force nécessaire -->
                     <Label Content="Force nécessaire :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,80,0,0"/>
-                    <Label x:Name="LabelForce" Content="0 N" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,80,0,0"/>
+                    <Label x:Name="LabelForce" Content="0 N" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="108,81,0,0"/>
 
                     <!-- Canvas pour représenter le système de levage -->
                     <!-- 1 poulie -->
-                    <Grid x:Name="PulleyScene1" Width="430" Background="LightGray" HorizontalAlignment="Left" Margin="154,0,0,135" Visibility="Visible">
+                    <Grid x:Name="PulleyScene1" Grid.Column="1" Margin="0,0,0,0" Width="430" Height="261" Background="LightGray" HorizontalAlignment="Left" Visibility="Collapsed" VerticalAlignment="Top">
                         <!-- Image pour la poulie -->
-                        <Image x:Name="Poulie11" Width="60" Height="60" Source="poulie.png" Canvas.Left="270" Canvas.Top="50" Margin="10,0,360,201"/>
+                        <Image x:Name="Poulie11" Width="60" Height="60" Source="poulie.png" Margin="10,0,360,201"/>
 
                         <!-- Image pour la charge -->
-                        <Image x:Name="Charge1" Width="50" Height="50" Source="charge.png" Canvas.Left="275" Canvas.Top="250" Margin="39,211,341,0"/>
+                        <Image x:Name="Charge1" Width="50" Height="50" Source="charge.png" Margin="39,211,341,0"/>
 
                         <!-- Ligne représentant la corde -->
-                        <Line x:Name="Corde11" X1="0" Y1="261" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="16,0,394,0"/>
-                        <Line x:Name="CordeLast1" X1="0" Y1="215" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="64,0,346,0"/>
+                        <Line x:Name="Corde11" X1="0" Y1="261" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="17,0,393,0"/>
+                        <Line x:Name="CordeLast1" X1="0" Y1="215" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="63,0,347,0"/>
+
+                        <!-- Flèche indicatrice du sens -->
+                        <Image HorizontalAlignment="Left" Height="22" Margin="1,238,0,0" VerticalAlignment="Top" Width="13" Source="/fleche.png"/>
                     </Grid>
 
                     <!-- 2 poulies -->
-                    <Grid x:Name="PulleyScene2" Width="430" Background="LightGray" HorizontalAlignment="Left" Margin="154,0,0,135" Visibility="Collapsed">
-                        <Image x:Name="Poulie21" Width="60" Height="60" Source="poulie.png" Canvas.Left="270" Canvas.Top="50" Margin="10,0,360,201"/>
+                    <Grid x:Name="PulleyScene2" Grid.Column="1" Margin="0,0,0,0" Width="430" Height="261" Background="LightGray" HorizontalAlignment="Left" Visibility="Collapsed" VerticalAlignment="Top">
+                        <Image x:Name="Poulie21" Width="60" Height="60" Source="poulie.png" Margin="10,0,360,201"/>
                         <Image x:Name="Poulie22" Width="60" Height="60" Source="poulie.png" Margin="58,154,312,47" RenderTransformOrigin="0.5,0.5">
                             <Image.RenderTransform>
                                 <TransformGroup>
@@ -260,17 +267,19 @@
                                 </TransformGroup>
                             </Image.RenderTransform>
                         </Image>
-                        <Image x:Name="Charge2" Width="50" Height="50" Source="charge.png" Canvas.Left="275" Canvas.Top="250" Margin="63,211,317,0"/>
+                        <Image x:Name="Charge2" Width="50" Height="50" Source="charge.png" Margin="63,211,317,0"/>
 
-                        <Line x:Name="Corde2" X1="0" Y1="261" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="18,0,392,0"/>
-                        <Line x:Name="CordeLast21" X1="0" Y1="180" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="64,0,346,0"/>
+                        <Line x:Name="Corde2" X1="0" Y1="261" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="17,0,393,0"/>
+                        <Line x:Name="CordeLast21" X1="0" Y1="180" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="63,0,347,0"/>
                         <Line x:Name="CordeLast22" X1="0" Y1="180" X2="0" Y2="0" Stroke="Black" StrokeThickness="3" Margin="113,0,297,0"/>
+
+                        <Image HorizontalAlignment="Left" Height="22" Margin="1,238,0,0" VerticalAlignment="Top" Width="13" Source="/fleche.png"/>
                     </Grid>
 
                     <!-- 3 poulies -->
-                    <Grid x:Name="PulleyScene3" Width="430" Background="LightGray" HorizontalAlignment="Left" Margin="154,0,0,135" Visibility="Collapsed">
-                        <Image x:Name="Poulie31" Width="60" Height="60" Source="poulie.png" Canvas.Left="270" Canvas.Top="50" Margin="10,0,360,201"/>
-                        <Image x:Name="Poulie32" Width="60" Height="60" Source="poulie.png" Margin="56,201,314,0" RenderTransformOrigin="0.5,0.5">
+                    <Grid x:Name="PulleyScene3" Grid.Column="1" Margin="0,0,0,0" Width="430" Height="261" Background="LightGray" HorizontalAlignment="Left" Visibility="Collapsed" VerticalAlignment="Top">
+                        <Image x:Name="Poulie31" Width="60" Height="60" Source="poulie.png" Margin="10,0,360,201"/>
+                        <Image x:Name="Poulie32" Width="60" Height="60" Source="poulie.png" Margin="58,154,312,47" RenderTransformOrigin="0.5,0.5">
                             <Image.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -280,19 +289,21 @@
                                 </TransformGroup>
                             </Image.RenderTransform>
                         </Image>
-                        <Image x:Name="Poulie33" Width="60" Height="60" Source="poulie.png" Canvas.Left="270" Canvas.Top="50" Margin="103,0,267,201"/>
-                        <Image x:Name="Charge3" Width="50" Height="50" Source="charge.png" Canvas.Left="275" Canvas.Top="250" Margin="132,211,248,0"/>
+                        <Image x:Name="Poulie33" Width="60" Height="60" Source="poulie.png" Margin="107,0,263,201"/>
+                        <Image x:Name="Charge3" Width="50" Height="50" Source="charge.png" Margin="63,211,317,0"/>
 
                         <Line x:Name="Corde31" X1="0" Y1="261" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="17,0,393,0"/>
-                        <Line x:Name="Corde32" X1="0" Y1="230" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="63,0,347,0"/>
-                        <Line x:Name="Corde33" X1="0" Y1="230" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="110,0,300,0"/>
-                        <Line x:Name="CordeLast3" X1="0" Y1="215" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="157,0,253,0"/>
+                        <Line x:Name="CordeLast31" X1="0" Y1="180" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="63,0,347,0"/>
+                        <Line x:Name="CordeLast32" X1="0" Y1="180" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="113,0,297,0"/>
+                        <Line x:Name="Corde32" X1="0" Y1="261" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="162,0,248,0"/>
+
+                        <Image HorizontalAlignment="Left" Height="22" Margin="1,238,0,0" VerticalAlignment="Top" Width="13" Source="/fleche.png"/>
                     </Grid>
 
                     <!-- 4 poulies -->
-                    <Grid x:Name="PulleyScene4" Width="430" Background="LightGray" HorizontalAlignment="Left" Margin="154,0,0,135" Visibility="Collapsed">
-                        <Image x:Name="Poulie41" Width="60" Height="60" Source="poulie.png" Canvas.Left="270" Canvas.Top="50" Margin="10,0,360,201"/>
-                        <Image x:Name="Poulie42" Width="60" Height="60" Source="poulie.png" Margin="56,201,314,0" RenderTransformOrigin="0.5,0.5">
+                    <Grid x:Name="PulleyScene4" Grid.Column="1" Margin="0,0,0,0" Width="430" Height="261" Background="LightGray" HorizontalAlignment="Left" Visibility="Collapsed" VerticalAlignment="Top">
+                        <Image x:Name="Poulie41" Width="60" Height="60" Source="poulie.png" Margin="10,0,360,201"/>
+                        <Image x:Name="Poulie42" Width="60" Height="60" Source="poulie.png" Margin="58,154,312,47" RenderTransformOrigin="0.5,0.5">
                             <Image.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -302,8 +313,8 @@
                                 </TransformGroup>
                             </Image.RenderTransform>
                         </Image>
-                        <Image x:Name="Poulie43" Width="60" Height="60" Source="poulie.png" Canvas.Left="270" Canvas.Top="50" Margin="103,0,267,201"/>
-                        <Image x:Name="Poulie44" Width="60" Height="60" Source="poulie.png" Margin="149,154,221,47" RenderTransformOrigin="0.5,0.5">
+                        <Image x:Name="Poulie43" Width="60" Height="60" Source="poulie.png" Margin="107,0,263,201"/>
+                        <Image x:Name="Poulie44" Width="60" Height="60" Source="poulie.png" Margin="156,154,214,47" RenderTransformOrigin="0.5,0.5">
                             <Image.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -313,19 +324,22 @@
                                 </TransformGroup>
                             </Image.RenderTransform>
                         </Image>
-                        <Image x:Name="Charge4" Width="50" Height="50" Source="charge.png" Canvas.Left="275" Canvas.Top="250" Margin="154,211,226,0"/>
+                        <Image x:Name="Charge4" Width="50" Height="50" Source="charge.png" Margin="112,211,268,0"/>
 
-                        <Line x:Name="Corde41" X1="0" Y1="261" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="17,0,393,0"/>
-                        <Line x:Name="Corde42" X1="0" Y1="230" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="63,0,347,0"/>
-                        <Line x:Name="Corde43" X1="0" Y1="230" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="110,0,300,0"/>
-                        <Line x:Name="CordeLast41" X1="0" Y1="180" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="156,0,254,0"/>
-                        <Line x:Name="CordeLast42" X1="0" Y1="180" X2="0" Y2="0" Stroke="Black" StrokeThickness="3" Margin="203,0,207,0"/>
+                        <Line x:Name="Corde4" X1="0" Y1="261" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="17,0,393,0"/>
+                        <Line x:Name="CordeLast41" X1="0" Y1="180" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="63,0,347,0"/>
+                        <Line x:Name="CordeLast42" X1="0" Y1="180" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="113,0,297,0"/>
+                        <Line x:Name="CordeLast43" X1="0" Y1="180" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="162,0,248,0"/>
+                        <Line x:Name="CordeLast44" X1="0" Y1="180" X2="0" Y2="0" Stroke="Black" StrokeThickness="3" Margin="210,0,200,0"/>
+                        <Rectangle x:Name="HorizontalBar4" HorizontalAlignment="Left" Height="5" Margin="85,211,0,0" Stroke="Black" VerticalAlignment="Top" Width="104" Fill="Black"/>
+
+                        <Image HorizontalAlignment="Left" Height="22" Margin="1,238,0,0" VerticalAlignment="Top" Width="13" Source="/fleche.png"/>
                     </Grid>
 
                     <!-- 5 poulies -->
-                    <Grid x:Name="PulleyScene5" Width="430" Background="LightGray" HorizontalAlignment="Left" Margin="154,0,0,135" Visibility="Collapsed">
-                        <Image x:Name="Poulie51" Width="60" Height="60" Source="poulie.png" Canvas.Left="270" Canvas.Top="50" Margin="10,0,360,201"/>
-                        <Image x:Name="Poulie52" Width="60" Height="60" Source="poulie.png" Margin="56,201,314,0" RenderTransformOrigin="0.5,0.5">
+                    <Grid x:Name="PulleyScene5" Grid.Column="1" Margin="0,0,0,0" Width="430" Height="261" Background="LightGray" HorizontalAlignment="Left" Visibility="Visible" VerticalAlignment="Top">
+                        <Image x:Name="Poulie51" Width="60" Height="60" Source="poulie.png" Margin="10,0,360,201"/>
+                        <Image x:Name="Poulie52" Width="60" Height="60" Source="poulie.png" Margin="58,154,312,47" RenderTransformOrigin="0.5,0.5">
                             <Image.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -335,8 +349,8 @@
                                 </TransformGroup>
                             </Image.RenderTransform>
                         </Image>
-                        <Image x:Name="Poulie53" Width="60" Height="60" Source="poulie.png" Canvas.Left="270" Canvas.Top="50" Margin="103,0,267,201"/>
-                        <Image x:Name="Poulie54" Width="60" Height="60" Source="poulie.png" Margin="149,201,221,0" RenderTransformOrigin="0.5,0.5">
+                        <Image x:Name="Poulie53" Width="60" Height="60" Source="poulie.png" Margin="107,0,263,201"/>
+                        <Image x:Name="Poulie54" Width="60" Height="60" Source="poulie.png" Margin="156,154,214,47" RenderTransformOrigin="0.5,0.5">
                             <Image.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -346,19 +360,22 @@
                                 </TransformGroup>
                             </Image.RenderTransform>
                         </Image>
-                        <Image x:Name="Poulie55" Width="60" Height="60" Source="poulie.png" Canvas.Left="270" Canvas.Top="50" Margin="196,0,174,201"/>
-                        <Image x:Name="Charge5" Width="50" Height="50" Source="charge.png" Canvas.Left="275" Canvas.Top="250" Margin="225,211,155,0"/>
+                        <Image x:Name="Poulie55" Width="60" Height="60" Source="poulie.png" Margin="204,0,166,201"/>
+                        <Image x:Name="Charge5" Width="50" Height="50" Source="charge.png" Margin="161,211,219,0"/>
 
                         <Line x:Name="Corde51" X1="0" Y1="261" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="17,0,393,0"/>
-                        <Line x:Name="Corde52" X1="0" Y1="230" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="63,0,347,0"/>
-                        <Line x:Name="Corde53" X1="0" Y1="230" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="110,0,300,0"/>
-                        <Line x:Name="Corde54" X1="0" Y1="230" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="156,0,254,0"/>
-                        <Line x:Name="Corde55" X1="0" Y1="230" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="203,0,207,0"/>
-                        <Line x:Name="CordeLast5" X1="0" Y1="215" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="250,0,160,0"/>
+                        <Line x:Name="CordeLast51" X1="0" Y1="180" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="63,0,347,0"/>
+                        <Line x:Name="CordeLast52" X1="0" Y1="180" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="113,0,297,0"/>
+                        <Line x:Name="CordeLast53" X1="0" Y1="180" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="162,0,248,0"/>
+                        <Line x:Name="CordeLast54" X1="0" Y1="180" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="210,0,200,0"/>
+                        <Line x:Name="CordeLast55" X1="0" Y1="216" X2="0" Y2="30" Stroke="Black" StrokeThickness="3" Margin="258,0,152,0"/>
+                        <Rectangle x:Name="HorizontalBar5" HorizontalAlignment="Left" Height="5" Margin="85,211,0,0" Stroke="Black" VerticalAlignment="Top" Width="174" Fill="Black"/>
+
+                        <Image HorizontalAlignment="Left" Height="22" Margin="1,238,0,0" VerticalAlignment="Top" Width="13" Source="/fleche.png"/>
                     </Grid>
 
                     <!-- Bouton pour démarrer la simulation -->
-                    <Button Content="Simuler" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28,111,0,0" Width="100" Click="Simuler_Click"/>
+                    <Button Content="Simuler" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,223,0,0" Width="100" Click="Simuler_Click" Height="38"/>
                 </Grid>
             </TabItem>
         </TabControl>

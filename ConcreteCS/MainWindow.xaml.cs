@@ -27,6 +27,7 @@ namespace ConcreteCS
             InitializeChart(); //Cumul
             InitializeChart2(); //Poulie
             InitializeChart3(); //Engrenage
+            AfficherPoulies(1); // Graphiques poulies
 
             // Définir les valeurs initiales pour les sliders
             ChargeSlider.Value = 300;  // Valeur par défaut de la charge
@@ -35,14 +36,8 @@ namespace ConcreteCS
 
             // Appeler la méthode pour calculer la force nécessaire
             OnSliderValueChanged(null, null);
-            this.SizeChanged += MainWindow_SizeChanged;
         }
 
-        private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e) {
-            // Recalculer et afficher les poulies à chaque changement de taille de fenêtre
-            int nbPoulies = (int)PoulieSlider.Value;
-            AfficherPoulies(nbPoulies);
-        }
         private void OnCalculsClick(object sender, RoutedEventArgs e)
         {
             MainTabControl.SelectedIndex = 0; // Select the Calculs tab
@@ -301,25 +296,112 @@ namespace ConcreteCS
             LabelForce.Content = $"{force:F2} N";  // Affiche la force calculée
 
             // Met à jour le visuel des poulies sur le canvas
+            ResetAnimation();
             AfficherPoulies(nbPoulies);
+        }
+
+        // Fonction de réinitialisation des animations
+        private void ResetAnimation()
+        {
+            // Position des poids
+            Charge1.BeginAnimation(FrameworkElement.MarginProperty, null);
+            Charge2.BeginAnimation(FrameworkElement.MarginProperty, null);
+            Charge3.BeginAnimation(FrameworkElement.MarginProperty, null);
+            Charge4.BeginAnimation(FrameworkElement.MarginProperty, null);
+            Charge5.BeginAnimation(FrameworkElement.MarginProperty, null);
+
+            Charge1.Margin = new Thickness(Charge1.Margin.Left, Charge1.Margin.Top, Charge1.Margin.Right, 0);
+            Charge2.Margin = new Thickness(Charge2.Margin.Left, Charge2.Margin.Top, Charge2.Margin.Right, 0);
+            Charge3.Margin = new Thickness(Charge3.Margin.Left, Charge3.Margin.Top, Charge3.Margin.Right, 0);
+            Charge4.Margin = new Thickness(Charge4.Margin.Left, Charge4.Margin.Top, Charge4.Margin.Right, 0);
+            Charge5.Margin = new Thickness(Charge5.Margin.Left, Charge5.Margin.Top, Charge5.Margin.Right, 0);
+
+            // Position des poulies
+            Poulie22.BeginAnimation(FrameworkElement.MarginProperty, null);
+            Poulie32.BeginAnimation(FrameworkElement.MarginProperty, null);
+            Poulie42.BeginAnimation(FrameworkElement.MarginProperty, null);
+            Poulie44.BeginAnimation(FrameworkElement.MarginProperty, null);
+            Poulie52.BeginAnimation(FrameworkElement.MarginProperty, null);
+            Poulie54.BeginAnimation(FrameworkElement.MarginProperty, null);
+
+            Poulie22.Margin = new Thickness(Poulie22.Margin.Left, Poulie22.Margin.Top, Poulie22.Margin.Right, 47);
+            Poulie32.Margin = new Thickness(Poulie32.Margin.Left, Poulie32.Margin.Top, Poulie32.Margin.Right, 47);
+            Poulie42.Margin = new Thickness(Poulie42.Margin.Left, Poulie42.Margin.Top, Poulie42.Margin.Right, 47);
+            Poulie44.Margin = new Thickness(Poulie44.Margin.Left, Poulie44.Margin.Top, Poulie44.Margin.Right, 47);
+            Poulie52.Margin = new Thickness(Poulie52.Margin.Left, Poulie52.Margin.Top, Poulie52.Margin.Right, 47);
+            Poulie54.Margin = new Thickness(Poulie54.Margin.Left, Poulie54.Margin.Top, Poulie54.Margin.Right, 47);
+
+            // Position des cordes
+            CordeLast1.BeginAnimation(Line.Y1Property, null);
+            CordeLast21.BeginAnimation(Line.Y1Property, null);
+            CordeLast22.BeginAnimation(Line.Y1Property, null);
+            CordeLast31.BeginAnimation(Line.Y1Property, null);
+            CordeLast32.BeginAnimation(Line.Y1Property, null);
+            CordeLast41.BeginAnimation(Line.Y1Property, null);
+            CordeLast42.BeginAnimation(Line.Y1Property, null);
+            CordeLast43.BeginAnimation(Line.Y1Property, null);
+            CordeLast44.BeginAnimation(Line.Y1Property, null);
+            CordeLast51.BeginAnimation(Line.Y1Property, null);
+            CordeLast52.BeginAnimation(Line.Y1Property, null);
+            CordeLast53.BeginAnimation(Line.Y1Property, null);
+            CordeLast54.BeginAnimation(Line.Y1Property, null);
+            CordeLast55.BeginAnimation(Line.Y1Property, null);
+
+            CordeLast1.Y1 = 215;
+            CordeLast21.Y1 = 180;
+            CordeLast22.Y1 = 180;
+            CordeLast31.Y1 = 180;
+            CordeLast32.Y1 = 180;
+            CordeLast41.Y1 = 180;
+            CordeLast42.Y1 = 180;
+            CordeLast43.Y1 = 180;
+            CordeLast44.Y1 = 180;
+            CordeLast51.Y1 = 180;
+            CordeLast52.Y1 = 180;
+            CordeLast53.Y1 = 180;
+            CordeLast54.Y1 = 180;
+            CordeLast55.Y1 = 216;
+
+            // Position des barres horizontales
+            HorizontalBar4.BeginAnimation(FrameworkElement.MarginProperty, null);
+            HorizontalBar5.BeginAnimation(FrameworkElement.MarginProperty, null);
+
+            HorizontalBar4.Margin = new Thickness(HorizontalBar4.Margin.Left, HorizontalBar4.Margin.Top, HorizontalBar4.Margin.Right, 0);
+            HorizontalBar5.Margin = new Thickness(HorizontalBar5.Margin.Left, HorizontalBar5.Margin.Top, HorizontalBar5.Margin.Right, 0);
         }
 
         // Animation de la charge et de la corde
         private void Simuler_Click(object sender, RoutedEventArgs e) {
             int nbPoulies = (int)SliderPoulies.Value;
             double tempsLevage = nbPoulies * 1.0;  // Ajuste le temps de levage en fonction du nombre de poulies
+            Thickness currentMargin;
+
+            ResetAnimation();
 
             // Créer une animation pour déplacer la charge vers le haut
-            DoubleAnimation animationChargeImpair = new DoubleAnimation {
-                From = 250,
-                To = 50,
+            ThicknessAnimation animationLevage = new ThicknessAnimation
+            {
                 Duration = TimeSpan.FromSeconds(tempsLevage)
             };
 
             // Créer une animation pour déplacer la corde en synchronisation avec la charge
             DoubleAnimation animationCordeImpair = new DoubleAnimation {
-                From = 250,
-                To = 50,
+                From = 215,
+                To = 55,
+                Duration = TimeSpan.FromSeconds(tempsLevage)
+            };
+
+            DoubleAnimation animationCordePair = new DoubleAnimation
+            {
+                From = 180,
+                To = 65,
+                Duration = TimeSpan.FromSeconds(tempsLevage)
+            };
+
+            DoubleAnimation animationCorde5 = new DoubleAnimation
+            {
+                From = 216,
+                To = 100,
                 Duration = TimeSpan.FromSeconds(tempsLevage)
             };
 
@@ -327,20 +409,82 @@ namespace ConcreteCS
             switch (nbPoulies)
             {
                 case 1:
-                    Charge1.BeginAnimation(Canvas.TopProperty, animationCharge);
-                    CordeLast1.BeginAnimation(Line.Y1Property, animationCorde);
+                    // Récupération de la marge du poids
+                    currentMargin = Charge1.Margin;
+                    animationLevage.From = currentMargin;
+                    // Création d'une nouvelle marge
+                    animationLevage.To = new Thickness(currentMargin.Left, 0, currentMargin.Right, 105);
+                    Charge1.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
+                    CordeLast1.BeginAnimation(Line.Y1Property, animationCordeImpair);
                     break;
                 case 2:
-
+                    currentMargin = Charge2.Margin;
+                    animationLevage.From = currentMargin;
+                    animationLevage.To = new Thickness(currentMargin.Left, 0, currentMargin.Right, 20);
+                    Charge2.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
+                    currentMargin = Poulie22.Margin;
+                    animationLevage.From = currentMargin;
+                    animationLevage.To = new Thickness(currentMargin.Left, 0, currentMargin.Right, 120);
+                    Poulie22.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
+                    CordeLast21.BeginAnimation(Line.Y1Property, animationCordePair);
+                    CordeLast22.BeginAnimation(Line.Y1Property, animationCordePair);
                     break;
                 case 3:
-
+                    currentMargin = Charge3.Margin;
+                    animationLevage.From = currentMargin;
+                    animationLevage.To = new Thickness(currentMargin.Left, 0, currentMargin.Right, 20);
+                    Charge3.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
+                    currentMargin = Poulie32.Margin;
+                    animationLevage.From = currentMargin;
+                    animationLevage.To = new Thickness(currentMargin.Left, 0, currentMargin.Right, 120);
+                    Poulie32.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
+                    CordeLast31.BeginAnimation(Line.Y1Property, animationCordePair);
+                    CordeLast32.BeginAnimation(Line.Y1Property, animationCordePair);
                     break;
                 case 4:
-
+                    currentMargin = Charge4.Margin;
+                    animationLevage.From = currentMargin;
+                    animationLevage.To = new Thickness(currentMargin.Left, 0, currentMargin.Right, 10);
+                    Charge4.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
+                    currentMargin = Poulie42.Margin;
+                    animationLevage.From = currentMargin;
+                    animationLevage.To = new Thickness(currentMargin.Left, 0, currentMargin.Right, 120);
+                    Poulie42.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
+                    currentMargin = Poulie44.Margin;
+                    animationLevage.From = currentMargin;
+                    animationLevage.To = new Thickness(currentMargin.Left, 0, currentMargin.Right, 120);
+                    Poulie44.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
+                    currentMargin = HorizontalBar4.Margin;
+                    animationLevage.From = currentMargin;
+                    animationLevage.To = new Thickness(currentMargin.Left, 100, currentMargin.Right, 0);
+                    HorizontalBar4.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
+                    CordeLast41.BeginAnimation(Line.Y1Property, animationCordePair);
+                    CordeLast42.BeginAnimation(Line.Y1Property, animationCordePair);
+                    CordeLast43.BeginAnimation(Line.Y1Property, animationCordePair);
+                    CordeLast44.BeginAnimation(Line.Y1Property, animationCordePair);
                     break;
                 case 5:
-
+                    currentMargin = Charge5.Margin;
+                    animationLevage.From = currentMargin;
+                    animationLevage.To = new Thickness(currentMargin.Left, 0, currentMargin.Right, 10);
+                    Charge5.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
+                    currentMargin = Poulie52.Margin;
+                    animationLevage.From = currentMargin;
+                    animationLevage.To = new Thickness(currentMargin.Left, 0, currentMargin.Right, 120);
+                    Poulie52.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
+                    currentMargin = Poulie54.Margin;
+                    animationLevage.From = currentMargin;
+                    animationLevage.To = new Thickness(currentMargin.Left, 0, currentMargin.Right, 120);
+                    Poulie54.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
+                    currentMargin = HorizontalBar5.Margin;
+                    animationLevage.From = currentMargin;
+                    animationLevage.To = new Thickness(currentMargin.Left, 100, currentMargin.Right, 0);
+                    HorizontalBar5.BeginAnimation(FrameworkElement.MarginProperty, animationLevage);
+                    CordeLast51.BeginAnimation(Line.Y1Property, animationCordePair);
+                    CordeLast52.BeginAnimation(Line.Y1Property, animationCordePair);
+                    CordeLast53.BeginAnimation(Line.Y1Property, animationCordePair);
+                    CordeLast54.BeginAnimation(Line.Y1Property, animationCordePair);
+                    CordeLast55.BeginAnimation(Line.Y1Property, animationCorde5);
                     break;
             }
         }
