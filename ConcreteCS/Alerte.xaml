@@ -1,0 +1,34 @@
+﻿<Window x:Class="ConcreteCS.Alerte"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConcreteCS"
+        mc:Ignorable="d"
+        Title="Alerte"
+        Width="200" Height="50"
+        WindowStyle="None" ResizeMode="CanMinimize" Background="Orange" 
+        WindowStartupLocation="CenterScreen" AllowsTransparency="True" Opacity="0.9">
+    <Grid>
+        <!-- Message d'alerte -->
+        <TextBlock Text="Danger ! Poids soulevé trop élevé ! " 
+                   Foreground="White" 
+                   FontSize="10" 
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   TextAlignment="Center"/>
+
+        <!-- Bouton pour fermer l'alerte -->
+        <Button Content="X" Width="12" Height="12" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top" 
+                Background="Red" 
+                Foreground="White" 
+                FontWeight="Bold" 
+                FontSize="7"
+                BorderBrush="{x:Null}" 
+                Click="CloseAlert" 
+                Margin="0,5,5,0"/>
+    </Grid>
+</Window>
