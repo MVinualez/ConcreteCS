@@ -61,14 +61,14 @@ namespace ConcreteCS
             MainTabControl.Visibility = Visibility.Visible;
         }
 
-        private void OnSimulationClick(object sender, RoutedEventArgs e)
+        private void OnGraphClick(object sender, RoutedEventArgs e)
         {
             logWriter.LogWrite("Ouverture de l'onglet simulation");
             MainTabControl.SelectedIndex = 1;
             MainTabControl.Visibility = Visibility.Visible;
         }
 
-        private void OnAnimationClick(object sender, RoutedEventArgs e)
+        private void OnSimulationClick(object sender, RoutedEventArgs e)
         {
             logWriter.LogWrite("Ouverture de l'onglet animation");
             MainTabControl.SelectedIndex = 2;
