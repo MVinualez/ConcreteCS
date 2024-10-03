@@ -229,6 +229,7 @@ namespace ConcreteCS
             if (alertWindow == null || !alertWindow.IsVisible)
             {
                 alertWindow = new Alerte();
+                alertWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 alertWindow.Show(); 
             }
 
