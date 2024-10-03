@@ -22,11 +22,13 @@ namespace ConcreteCS
     public partial class MainWindow : Window
     {
         private LevageSysteme levage;
+        private LogWriter logWriter;
         public MainWindow()
         {
             InitializeComponent();
             SelectionNone.Visibility = Visibility.Visible;
             levage = new LevageSysteme();
+            logWriter = new LogWriter("Démarrage de l'application ConcreteCS");
             SliderPoulies.ValueChanged += SliderPoulies_ValueChanged;
             InitializeChart(); //Cumul
             InitializeChart2(); //Poulie
@@ -40,6 +42,7 @@ namespace ConcreteCS
             // Appeler la méthode pour calculer la force nécessaire
             OnSliderValueChanged(null, null);
             this.SizeChanged += MainWindow_SizeChanged;
+            logWriter.LogWrite("Valeurs initialisées");
         }
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e) {
