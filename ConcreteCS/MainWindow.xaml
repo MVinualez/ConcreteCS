@@ -184,22 +184,22 @@
 
 
                             <!-- Poids de la charge -->
-                            <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Charge à soulever (kg)" Height="16" Width="150"/>
-                            <TextBox x:Name="PoidsInputMomentQuadr" Grid.Row="1" Grid.Column="1" Width="150" Text="300" VerticalAlignment="Center" HorizontalAlignment="Left" Height="18"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Charge à soulever (kg)" Height="16" Width="200"/>
+                            <TextBox x:Name="PoidsInputMomentQuadr" Grid.Row="1" Grid.Column="1" Width="200" Text="300" VerticalAlignment="Center" HorizontalAlignment="Left" Height="18"/>
 
                             <!-- Longueur du bras -->
-                            <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Longueur du bras (mm)" Height="16" Width="150"/>
-                            <TextBox x:Name="LongueurInputMomentQuadr" Grid.Row="2" Grid.Column="1" Width="150" Text="3" VerticalAlignment="Center" HorizontalAlignment="Left" Height="18"/>
+                            <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Longueur du bras (mm)" Height="16" Width="200"/>
+                            <TextBox x:Name="LongueurInputMomentQuadr" Grid.Row="2" Grid.Column="1" Width="200" Text="3" VerticalAlignment="Center" HorizontalAlignment="Left" Height="18"/>
                             
                             <!-- Bouton pour démarrer la simulation -->
-                            <Button Grid.Row="5" Grid.Column="1" Content="Calculer le moment quadratique" Click="OnCalculateMomentQuadrClick" Margin="0,6,0,5" HorizontalAlignment="Left" Width="150"/>
+                            <Button Grid.Row="5" Grid.Column="1" Content="Calculer le moment quadratique" Click="OnCalculateMomentQuadrClick" Margin="0,6,0,5" HorizontalAlignment="Left" Width="200"/>
 
                             <!-- Résultat -->
-                            <TextBlock Grid.Row="6" Grid.Column="0" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Résultat" Height="19" Width="150"/>
+                            <TextBlock Grid.Row="6" Grid.Column="0" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Résultat" Height="19" Width="200"/>
 
                             <!-- Moment quadratique (kg/mm) -->
-                            <TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Moment Quadratique (kg/mm)" Height="16" Width="150"/>
-                            <TextBox Grid.Row="7" Grid.Column="1" Width="150" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="ResultMomentQuadrCalculs" Height="18"/>
+                            <TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Moment Quadratique (kg/mm)" Height="16" Width="170"/>
+                            <TextBox Grid.Row="7" Grid.Column="1" Width="200" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="ResultMomentQuadrCalculs" Height="18"/>
                         </Grid>
                     </Grid>
 
