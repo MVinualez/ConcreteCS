@@ -192,7 +192,7 @@
                             <TextBox x:Name="LongueurInputMomentQuadr" Grid.Row="2" Grid.Column="1" Width="150" Text="3" VerticalAlignment="Center" HorizontalAlignment="Left" Height="18"/>
                             
                             <!-- Bouton pour démarrer la simulation -->
-                            <Button Grid.Row="5" Grid.Column="1" Content="Calculer la flèche" Click="OnCalculateMomentQuadrClick" Margin="0,6,0,5" HorizontalAlignment="Left" Width="150"/>
+                            <Button Grid.Row="5" Grid.Column="1" Content="Calculer le moment quadratique" Click="OnCalculateMomentQuadrClick" Margin="0,6,0,5" HorizontalAlignment="Left" Width="150"/>
 
                             <!-- Résultat -->
                             <TextBlock Grid.Row="6" Grid.Column="0" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Résultat" Height="19" Width="150"/>
