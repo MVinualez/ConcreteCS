@@ -49,26 +49,28 @@ namespace ConcreteCS
         }
         private void OnCalculsClick(object sender, RoutedEventArgs e)
         {
-            MainTabControl.SelectedIndex = 0; // Select the Calculs tab
-            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
+
+            MainTabControl.SelectedIndex = 0; //Calcul
+            MainTabControl.Visibility = Visibility.Visible; 
+
         }
 
         private void OnGraphClick(object sender, RoutedEventArgs e)
         {
-            MainTabControl.SelectedIndex = 1; // Select the Simulation tab
-            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
+            MainTabControl.SelectedIndex = 1; //graphique
+            MainTabControl.Visibility = Visibility.Visible; 
         }
 
         private void OnSimulationClick(object sender, RoutedEventArgs e)
         {
-            // Assuming you have a Graphs tab as well
-            MainTabControl.SelectedIndex = 2; // Adjust the index as necessary
-            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
+           
+            MainTabControl.SelectedIndex = 2;  //simulation
+            MainTabControl.Visibility = Visibility.Visible; 
         }
 
         private void OnQuitClick(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown(); // Exit the application
+            Application.Current.Shutdown(); //quiter
         }
         private void listeCalculs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
