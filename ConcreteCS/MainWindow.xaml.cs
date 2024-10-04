@@ -49,38 +49,55 @@ namespace ConcreteCS
             AfficherPoulies(1);
             double force = levage.CalculerForce(1);  // Calcule la force nécessaire
             LabelForce.Content = $"{force:F2} N";  // Affiche la force calculée
+
+            Calculs.Tag = "Selected"; // Sélectionne l'onglet calcul en premier
         }
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e) {
             logWriter.LogWrite("Dimension de la fenête modifiée");
         }
 
+        private void ResetTabsButtons()
+        {
+            Calculs.ClearValue(Button.TagProperty); // Enlève le tag "Selected"
+            Graphique.ClearValue(Button.TagProperty);
+            Simulation.ClearValue(Button.TagProperty);
+        }
+
         private void OnCalculsClick(object sender, RoutedEventArgs e)
         {
+            ResetTabsButtons();
             logWriter.LogWrite("Ouverture de l'onglet calculs");
             MainTabControl.SelectedIndex = 0;
-            MainTabControl.Visibility = Visibility.Visible; //Changer d'onglet sur Calcul
+            MainTabControl.Visibility = Visibility.Visible; // Changer d'onglet sur Calcul
+            Calculs.Tag = "Selected"; // Changer le bouton en sélectionné
         }
 
         private void OnGraphClick(object sender, RoutedEventArgs e)
         {
+            ResetTabsButtons();
             logWriter.LogWrite("Ouverture de l'onglet graphiques");
             MainTabControl.SelectedIndex = 1;
-            MainTabControl.Visibility = Visibility.Visible; //Changer d'onglet sur graphique
+            MainTabControl.Visibility = Visibility.Visible; // Changer d'onglet sur graphique
+            Graphique.Tag = "Selected";
         }
 
         private void OnSimulationClick(object sender, RoutedEventArgs e)
         {
+            ResetTabsButtons();
             logWriter.LogWrite("Ouverture de l'onglet simulation");
             MainTabControl.SelectedIndex = 2;
-            MainTabControl.Visibility = Visibility.Visible; //Changer d'onglet sur simulation
-        } 
+            MainTabControl.Visibility = Visibility.Visible; // Changer d'onglet sur simulation
+            Simulation.Tag = "Selected";
+        }
 
         private void OnQuitClick(object sender, RoutedEventArgs e)
         {
+            ResetTabsButtons();
             logWriter.LogWrite("Fermeture de l'application ConcreteCS");
             Application.Current.Shutdown();  //Quitter
         }
+
         private void listeCalculs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (IsLoaded)

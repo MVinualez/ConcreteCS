@@ -14,10 +14,11 @@
         <Style x:Key="TabButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
 
             <Setter Property="BorderBrush" Value="#0E1425"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Background" Value="#0E1425"/>
+            <Setter Property="Background" Value="#FF1A2E65"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -31,13 +32,12 @@
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
-                    <Setter Property="Foreground" Value="Black"/>
-                    <Setter Property="BorderBrush" Value="White"/>
-                    <Setter Property="BorderThickness" Value="2"/>
-                </DataTrigger>
+                <Trigger Property="Tag" Value="Selected">
+                    <Setter Property="Background" Value="#FF4265C2"/>
+                    <!-- Selected background color -->
+                </Trigger>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#2E4053"/>
+                    <Setter Property="Background" Value="#FF313E61"/>
 
                 </Trigger>
             </Style.Triggers>
@@ -54,8 +54,6 @@
             <ColumnDefinition Width="318*"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-
-
 
         <!-- Menu -->
         <Border BorderBrush="#212f3d" BorderThickness="2">
@@ -76,11 +74,11 @@
                 </Grid>
 
                 <!-- Bouton pour les onglets -->
-                <Button Content="Calculs" Style="{StaticResource TabButtonStyle}"  Margin=" 3 ,2,3,2" Height="auto" Click="OnCalculsClick"/>
-                <Button Content="Graphique" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" Click="OnGraphClick"/>
-                <Button Content="Simulation" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" Click="OnSimulationClick"/>
-                <Button Content="Ouvrir les logs" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" VerticalAlignment="Bottom" Click="OnOpenLogClick"/>
-                <Button Content="Quitter" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" VerticalAlignment="Bottom" Click="OnQuitClick"/>
+                <Button x:Name="Calculs" Content="Calculs" Style="{StaticResource TabButtonStyle}"  Margin=" 3 ,2,3,2" Height="auto" Click="OnCalculsClick"/>
+                <Button x:Name="Graphique" Content="Graphique" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" Click="OnGraphClick"/>
+                <Button x:Name="Simulation" Content="Simulation" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" Click="OnSimulationClick"/>
+                <Button x:Name="Logs" Content="Ouvrir les logs" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" VerticalAlignment="Bottom" Click="OnOpenLogClick"/>
+                <Button x:Name="Quitter" Content="Quitter" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" VerticalAlignment="Bottom" Click="OnQuitClick"/>
 
                 <TextBlock Height="1" TextWrapping="Wrap" Text="TextBlock" Width="2"/>
             </StackPanel>
