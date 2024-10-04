@@ -92,18 +92,18 @@ namespace ConcreteCS
                     SelectionNone.Visibility = Visibility.Collapsed;
                     Demultiplication.Visibility = Visibility.Visible;
                     Fleche.Visibility = Visibility.Collapsed;
-                    Bras.Visibility = Visibility.Collapsed;
+                    MomentQuadratique.Visibility = Visibility.Collapsed;
                 }else if (selectedIndex == 1)
                 {
                     SelectionNone.Visibility = Visibility.Collapsed;
                     Demultiplication.Visibility = Visibility.Collapsed;
                     Fleche.Visibility = Visibility.Visible;
-                    Bras.Visibility = Visibility.Collapsed;
+                    MomentQuadratique.Visibility = Visibility.Collapsed;
                 }else if (selectedIndex == 2) {
                     SelectionNone.Visibility = Visibility.Collapsed;
                     Demultiplication.Visibility = Visibility.Collapsed;
                     Fleche.Visibility = Visibility.Collapsed;
-                    Bras.Visibility = Visibility.Visible;
+                    MomentQuadratique.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -165,6 +165,28 @@ namespace ConcreteCS
 
                 // Affichage du résultat avec 5 chiffres après la virgule
                 ResultFlecheCalculs.Text = fleche.ToString("F5");
+            } else {
+                logWriter.LogWrite("ERREUR : Veuillez entrer des valeurs numériques valides");
+                MessageBox.Show("Veuillez entrer des valeurs numériques valides", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void OnCalculateMomentQuadrClick(object sender, RoutedEventArgs e) {
+            logWriter.LogWrite("Lancement du traitement des calculs du moment quadratique");
+
+            // Remplacer les virgules par des points dans les entrées
+            string poidsText = PoidsInputMomentQuadr.Text.Replace(',', '.');
+            string longueurText = LongueurInputMomentQuadr.Text.Replace(',', '.');
+
+            // Vérification des entrées après avoir remplacé les virgules
+            if (double.TryParse(poidsText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double poidsKg) &&
+                double.TryParse(longueurText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double longueur)) { 
+                
+                // Calcul de la flèche
+                double momentQuadr = poidsKg*longueur;
+
+                // Affichage du résultat avec 5 chiffres après la virgule
+                ResultMomentQuadrCalculs.Text = momentQuadr.ToString("F5");
             } else {
                 logWriter.LogWrite("ERREUR : Veuillez entrer des valeurs numériques valides");
                 MessageBox.Show("Veuillez entrer des valeurs numériques valides", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -240,7 +262,7 @@ namespace ConcreteCS
                 {
                     if (genre == "Homme")
                     {
-                        if (age >= 18 && age <= 45 && forceNecessaireKg > 25)
+                        if (age <= 45 && forceNecessaireKg > 25)
                         {
                             ShowAlert();
                         }
@@ -252,7 +274,7 @@ namespace ConcreteCS
 
                     else if (genre == "Femme")
                     {
-                        if (age >= 18 && age <= 45 && forceNecessaireKg > 13)
+                        if (age <= 45 && forceNecessaireKg > 13)
                         {
                             ShowAlert();
                         }
