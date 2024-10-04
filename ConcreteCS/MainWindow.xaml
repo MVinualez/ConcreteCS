@@ -107,7 +107,7 @@
                     </Border>
 
                     <!-- Éléments affichés en fonction de l'élément sélectionné dans la liste de gauche -->
-                    <Grid Grid.Column="1" x:Name="Demultiplication" Visibility="Visible" Grid.ColumnSpan="2">
+                    <Grid Grid.Column="1" x:Name="Demultiplication" Visibility="Collapsed" Grid.ColumnSpan="2">
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <Grid Margin="10">
                                 <Grid.RowDefinitions>
@@ -132,7 +132,7 @@
                                 <!-- Charge à lever -->
                                 <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"
                                            Text="Charge à soulever (kg)" Height="16" Width="118"/>
-                                <TextBox x:Name="ChargeInput" Grid.Column="1" Width="150" Text="300" VerticalAlignment="Center" 
+                                <TextBox x:Name="ChargeInput" Grid.Column="1" Grid.Row="1" Width="150" Text="300" VerticalAlignment="Center" 
                                            HorizontalAlignment="Left" Height="18"/>
 
                                 <!-- Nombre de poulies -->

@@ -47,6 +47,8 @@ namespace ConcreteCS
             this.SizeChanged += MainWindow_SizeChanged;
             logWriter.LogWrite("Valeurs initialisées");
             AfficherPoulies(1);
+            double force = levage.CalculerForce(1);  // Calcule la force nécessaire
+            LabelForce.Content = $"{force:F2} N";  // Affiche la force calculée
         }
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e) {
