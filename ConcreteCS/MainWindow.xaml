@@ -107,7 +107,7 @@
                     </Border>
 
                     <!-- Éléments affichés en fonction de l'élément sélectionné dans la liste de gauche -->
-                    <Grid Grid.Column="1" x:Name="Demultiplication" Visibility="Collapsed" Grid.ColumnSpan="2">
+                    <Grid Grid.Column="1" x:Name="Demultiplication" Visibility="Visible" Grid.ColumnSpan="2">
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <Grid Margin="10">
                                 <Grid.RowDefinitions>
@@ -323,7 +323,7 @@
                     </Grid.ColumnDefinitions>
                   
                     <!-- Curseur pour ajuster le nombre de poulies -->
-                    <Slider x:Name="SliderPoulies" Minimum="1" Maximum="5" Value="1" TickFrequency="1" IsSnapToTickEnabled="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="10,10,0,0"/>
+                    <Slider x:Name="SliderPoulies" Minimum="1" Maximum="5" Value="1" TickFrequency="1" IsSnapToTickEnabled="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="10,10,0,0"/>
                     <Label Content="Nombre de poulies :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0"/>
                     <Label x:Name="LabelNbPoulies" Content="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,40,0,0"/>
 
