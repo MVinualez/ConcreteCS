@@ -371,7 +371,7 @@
                     </Grid>
 
                     <!-- 3 poulies -->
-                    <Grid x:Name="PulleyScene3" Grid.Column="1" Margin="0,0,0,0" Width="430" Height="261" Background="LightGray" HorizontalAlignment="Left" Visibility="Visible" VerticalAlignment="Top">
+                    <Grid x:Name="PulleyScene3" Grid.Column="1" Margin="0,0,0,0" Width="430" Height="261" Background="LightGray" HorizontalAlignment="Left" Visibility="Collapsed" VerticalAlignment="Top">
                         <Image x:Name="Poulie31" Width="60" Height="60" Source="poulie.png" Margin="10,0,360,201"/>
                         <Image x:Name="Poulie32" Width="60" Height="60" Source="poulie.png" Margin="58,154,312,47" RenderTransformOrigin="0.5,0.5">
                             <Image.RenderTransform>

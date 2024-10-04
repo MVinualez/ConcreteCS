@@ -46,14 +46,11 @@ namespace ConcreteCS
             OnSliderValueChanged(null, null);
             this.SizeChanged += MainWindow_SizeChanged;
             logWriter.LogWrite("Valeurs initialisées");
+            AfficherPoulies(1);
         }
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e) {
             logWriter.LogWrite("Dimension de la fenête modifiée");
-
-            // Recalculer et afficher les poulies à chaque changement de taille de fenêtre
-            int nbPoulies = (int)PoulieSlider.Value;
-            AfficherPoulies(nbPoulies);
         }
 
         private void OnCalculsClick(object sender, RoutedEventArgs e)
