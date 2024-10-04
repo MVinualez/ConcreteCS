@@ -58,27 +58,27 @@ namespace ConcreteCS
         {
             logWriter.LogWrite("Ouverture de l'onglet calculs");
             MainTabControl.SelectedIndex = 0;
-            MainTabControl.Visibility = Visibility.Visible;
+            MainTabControl.Visibility = Visibility.Visible; //Changer d'onglet sur Calcul
         }
 
         private void OnGraphClick(object sender, RoutedEventArgs e)
         {
             logWriter.LogWrite("Ouverture de l'onglet graphiques");
             MainTabControl.SelectedIndex = 1;
-            MainTabControl.Visibility = Visibility.Visible;
+            MainTabControl.Visibility = Visibility.Visible; //Changer d'onglet sur graphique
         }
 
         private void OnSimulationClick(object sender, RoutedEventArgs e)
         {
             logWriter.LogWrite("Ouverture de l'onglet simulation");
             MainTabControl.SelectedIndex = 2;
-            MainTabControl.Visibility = Visibility.Visible;
-        }
+            MainTabControl.Visibility = Visibility.Visible; //Changer d'onglet sur simulation
+        } 
 
         private void OnQuitClick(object sender, RoutedEventArgs e)
         {
             logWriter.LogWrite("Fermeture de l'application ConcreteCS");
-            Application.Current.Shutdown();
+            Application.Current.Shutdown();  //Quitter
         }
         private void listeCalculs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
