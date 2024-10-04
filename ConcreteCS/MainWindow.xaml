@@ -6,37 +6,90 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:local="clr-namespace:ConcreteCS"
         mc:Ignorable="d"
+
         Title="ConcreteCS" Height="450" Width="800" Icon="/cs_team.png">
+
+    <Window.Resources>
+        <!-- Style pour les texte-->
+        <Style x:Key="TabButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+
+            <Setter Property="BorderBrush" Value="#0E1425"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="#0E1425"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </DataTrigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2E4053"/>
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="318*"/>
+            <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Image principale en haut à gauche -->
+
 
         <!-- Menu -->
-        <StackPanel Grid.Column="0" Background="#3b4252" VerticalAlignment="Stretch">
+        <Border BorderBrush="#212f3d" BorderThickness="2">
+            <StackPanel Grid.Column="0" Background="#10172b" VerticalAlignment="Stretch">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-            <Image Source="/cs_team.png" Width="60" Height="60" HorizontalAlignment="left" VerticalAlignment="Top" Margin="10"/>
+                    <!-- logo concreteCS -->
+                    <Rectangle Width="30" Height="30" RadiusX="50" RadiusY="50" Grid.Column="0">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="/cs_team.png"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,-10" Grid.Column="1" Foreground="White"><Run Language="fr-fr" Text="ConcreteCS"/><LineBreak/><Run Language="fr-fr"/></TextBlock>
+                </Grid>
 
+                <!-- Bouton pour les onglets -->
+                <Button Content="Calculs" Style="{StaticResource TabButtonStyle}"  Margin=" 3 ,2,3,2" Height="auto" Click="OnCalculsClick"/>
+                <Button Content="Graphique" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" Click="OnGraphClick"/>
+                <Button Content="Simulation" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" Click="OnSimulationClick"/>
+                <Button Content="Ouvrir les logs" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" VerticalAlignment="Bottom" Click="OnOpenLogClick"/>
+                <Button Content="Quitter" Style="{StaticResource TabButtonStyle}" Margin=" 3 ,2,3,2" Height="auto" VerticalAlignment="Bottom" Click="OnQuitClick"/>
 
-            <Button Content="Calculs" Background="#5e81ac" Foreground="White" Margin="10" Height="40" Click="OnCalculsClick"/>
-            <Button Content="Simulation" Background="#5e81ac" Foreground="White" Margin="10" Height="40" Click="OnSimulationClick"/>
-            <Button Content="Graphiques" Background="#5e81ac" Foreground="White" Margin="10" Height="40" Click="OnGraphClick"/>
-            <Button Content="Quitter" Background="#5e81ac" Foreground="White" Margin="10" Height="40" Click="OnQuitClick"/>
-
-            <!-- logo cesi -->
-            <StackPanel VerticalAlignment="Bottom">
-                <Image Source="/logo.png" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+                <TextBlock Height="1" TextWrapping="Wrap" Text="TextBlock" Width="2"/>
             </StackPanel>
-        </StackPanel>
-
+        </Border>
         <!-- TabControl qui s'agrandit -->
-        <TabControl x:Name="MainTabControl" Grid.Column="1" Margin="0,-16,10,26" >
+        <TabControl x:Name="MainTabControl" Grid.Column="1" Margin="0,-16,10,26" Grid.ColumnSpan="2">
             <!-- Onglet Calculs -->
             <TabItem Header="Calculs" Visibility="Hidden">
-                <Grid Background="#FFE5E5E5">
+                <Grid Background="white">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="175"/>
                         <ColumnDefinition Width="30*"/>
@@ -45,6 +98,7 @@
                     <ListBox x:Name="listeCalculs" SelectionMode="Single" SelectionChanged="listeCalculs_SelectionChanged">
                         <ListBoxItem>Démultiplication d'un système</ListBoxItem>
                         <ListBoxItem>Longueur du bras</ListBoxItem>
+                        <ListBoxItem>Calcul de la flèche</ListBoxItem>
                     </ListBox>
 
                     <!-- Message lorsqu'aucune option n'est sélectionnée-->
@@ -114,13 +168,54 @@
                         <TextBlock Text="Actuellement indisponible." />
                     </Grid>
 
-                    <!-- Image en bas à droite -->
-                    <Image Source="/logo.png" 
-                           Width="50" Height="25" 
-                           HorizontalAlignment="Right" 
-                           VerticalAlignment="Bottom" 
-                           Margin="0,0,10,10" Grid.Column="2"
-                    />
+                    <Grid Grid.Column="1" x:Name="Fleche" Grid.ColumnSpan="2" Visibility="Collapsed">
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!-- Variables du système -->
+                            <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Variables du système" Height="19" Width="200"/>
+
+
+                            <!-- Poids de la charge -->
+                            <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Charge à soulever (kg)" Height="16" Width="150"/>
+                            <TextBox x:Name="PoidsInput" Grid.Row="1" Grid.Column="1" Width="150" Text="300" VerticalAlignment="Center" HorizontalAlignment="Left" Height="18"/>
+
+                            <!-- Longueur du bras -->
+                            <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Longueur du bras" Height="16" Width="150"/>
+                            <TextBox x:Name="LongueurInput" Grid.Row="2" Grid.Column="1" Width="150" Text="3" VerticalAlignment="Center" HorizontalAlignment="Left" Height="18"/>
+
+                            <!-- Module de Young -->
+                            <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Module de Young" Height="16" Width="150"/>
+                            <TextBox x:Name="YoungInput" Grid.Row="3" Grid.Column="1" Width="150" Text="1" VerticalAlignment="Center" HorizontalAlignment="Left" Height="18"/>
+
+                            <!-- Moment Quadratique -->
+                            <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Moment Quadratique" Height="16" Width="150"/>
+                            <TextBox x:Name="MomentQuadratiqueInput" Grid.Row="4" Grid.Column="1" Width="150" Text="1" VerticalAlignment="Center" HorizontalAlignment="Left" Height="18"/>
+
+                            <!-- Bouton pour démarrer la simulation -->
+                            <Button Grid.Row="5" Grid.Column="1" Content="Calculer la flèche" Click="OnCalculateFlecheClick" Margin="0,6,0,5" HorizontalAlignment="Left" Width="150"/>
+
+                            <!-- Résultat -->
+                            <TextBlock Grid.Row="6" Grid.Column="0" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Résultat" Height="19" Width="150"/>
+
+                            <!-- Flèche (N/m) -->
+                            <TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Flèche (N/m)" Height="16" Width="150"/>
+                            <TextBox Grid.Row="7" Grid.Column="1" Width="150" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="ResultFlecheCalculs" Height="18"/>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </TabItem>
 
@@ -162,6 +257,9 @@
                             <!-- Âge -->
                             <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Âge (années)" Height="16" Width="102"/>
                             <TextBox x:Name="AgeInput" Grid.Row="5" Grid.Column="1" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" Height="18"/>
+
+                            <!-- Ajout du bouton pour ouvrir un lien -->
+                            <Button Name="OpenLinkButton" Content="En savoir plus" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Margin="0,10,0,20" Width="80" Height="20" Visibility="Collapsed"  Click="OpenLinkButton_Click"/>
                         </StackPanel>
 
 
@@ -175,11 +273,11 @@
                             <TextBox x:Name="ResultForce" IsReadOnly="True" Width="150" Margin="0,0,0,10"/>
                             <TextBlock>Force nécessaire pour soulever la charge (kg)</TextBlock>
                             <TextBox x:Name="ResultForceKg" IsReadOnly="True" Width="150"/>
+                            <Button x:Name="csvDownload"  Width="70" Height="20" Click="csvDownload_Click" Margin="0,5,0,0">Exporter</Button>
 
                             <!-- Graphique combiné -->
                             <TextBlock FontWeight="Bold" FontSize="14" Margin="0,20,0,10">Graphique de la force</TextBlock>
-                            <lvc:CartesianChart x:Name="MyChart" 
-                                            Width="400" Height="160">
+                            <lvc:CartesianChart x:Name="MyChart" Width="400" Height="160">
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Combiné du nombre de poulies et du rapport de réduction des engrenages " MinValue="1"/>
                                 </lvc:CartesianChart.AxisX>
@@ -211,25 +309,21 @@
                                 </lvc:CartesianChart.AxisY>
                             </lvc:CartesianChart>
 
-                            <!-- Image en bas à droite -->
-                            <Image Source="/logo.png" 
-                               Width="50" Height="25" 
-                               HorizontalAlignment="Right" 
-                               VerticalAlignment="Bottom" 
-                               Margin="0,0,10,10"
-                            />
+
                         </StackPanel>
                     </Grid>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="Animation" Margin="0,0,-2,0" Height="20" VerticalAlignment="Center">
+
+            <TabItem Header="Animation" Margin="0,0,-2,0" Height="20" VerticalAlignment="Center" Visibility="Hidden">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="180"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                  
                     <!-- Curseur pour ajuster le nombre de poulies -->
-                    <Slider x:Name="SliderPoulies" Minimum="1" Maximum="5" Value="1" TickFrequency="1" IsSnapToTickEnabled="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="139" Margin="10,10,0,0"/>
+                    <Slider x:Name="SliderPoulies" Minimum="1" Maximum="5" Value="1" TickFrequency="1" IsSnapToTickEnabled="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="10,10,0,0"/>
                     <Label Content="Nombre de poulies :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0"/>
                     <Label x:Name="LabelNbPoulies" Content="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,40,0,0"/>
 
@@ -380,5 +474,9 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <!-- logo cesi -->
+        <StackPanel VerticalAlignment="Bottom" Margin="0,0,0,0">
+            <Image Source="/logo.png" Width="100" Height="auto" HorizontalAlignment="center" VerticalAlignment="Bottom" Margin="10"/>
+        </StackPanel>
     </Grid>
 </Window>

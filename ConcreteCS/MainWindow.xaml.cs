@@ -12,17 +12,25 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using LiveCharts;
 using LiveCharts.Wpf;
+using System.IO;
+using Microsoft.Win32;
+using System.Diagnostics;
+using System.Reflection.Metadata;
+
 
 namespace ConcreteCS
 {
     public partial class MainWindow : Window
     {
         private LevageSysteme levage;
+        private LogWriter logWriter;
         public MainWindow()
         {
+            logWriter = new LogWriter("Démarrage de l'application ConcreteCS");
             InitializeComponent();
             SelectionNone.Visibility = Visibility.Visible;
             levage = new LevageSysteme();
+
             SliderPoulies.ValueChanged += SliderPoulies_ValueChanged;
             InitializeChart(); //Cumul
             InitializeChart2(); //Poulie
@@ -30,36 +38,49 @@ namespace ConcreteCS
             AfficherPoulies(1); // Graphiques poulies
 
             // Définir les valeurs initiales pour les sliders
-            ChargeSlider.Value = 300;  // Valeur par défaut de la charge
-            PoulieSlider.Value = 3;     // Valeur par défaut du nombre de poulies
-            GearRatioSlider.Value = 1;  // Valeur par défaut du rapport d'engrenage
+            ChargeSlider.Value = 300;
+            PoulieSlider.Value = 3;
+            GearRatioSlider.Value = 1;
 
             // Appeler la méthode pour calculer la force nécessaire
             OnSliderValueChanged(null, null);
+            this.SizeChanged += MainWindow_SizeChanged;
+            logWriter.LogWrite("Valeurs initialisées");
+        }
+
+        private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e) {
+            logWriter.LogWrite("Dimension de la fenête modifiée");
+
+            // Recalculer et afficher les poulies à chaque changement de taille de fenêtre
+            int nbPoulies = (int)PoulieSlider.Value;
+            AfficherPoulies(nbPoulies);
         }
 
         private void OnCalculsClick(object sender, RoutedEventArgs e)
         {
-            MainTabControl.SelectedIndex = 0; // Select the Calculs tab
-            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
-        }
-
-        private void OnSimulationClick(object sender, RoutedEventArgs e)
-        {
-            MainTabControl.SelectedIndex = 1; // Select the Simulation tab
-            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
+            logWriter.LogWrite("Ouverture de l'onglet calculs");
+            MainTabControl.SelectedIndex = 0;
+            MainTabControl.Visibility = Visibility.Visible; //Changer d'onglet sur Calcul
         }
 
         private void OnGraphClick(object sender, RoutedEventArgs e)
         {
-            // Assuming you have a Graphs tab as well
-            MainTabControl.SelectedIndex = 2; // Adjust the index as necessary
-            MainTabControl.Visibility = Visibility.Visible; // Show the TabControl
+            logWriter.LogWrite("Ouverture de l'onglet graphiques");
+            MainTabControl.SelectedIndex = 1;
+            MainTabControl.Visibility = Visibility.Visible; //Changer d'onglet sur graphique
         }
+
+        private void OnSimulationClick(object sender, RoutedEventArgs e)
+        {
+            logWriter.LogWrite("Ouverture de l'onglet simulation");
+            MainTabControl.SelectedIndex = 2;
+            MainTabControl.Visibility = Visibility.Visible; //Changer d'onglet sur simulation
+        } 
 
         private void OnQuitClick(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown(); // Exit the application
+            logWriter.LogWrite("Fermeture de l'application ConcreteCS");
+            Application.Current.Shutdown();  //Quitter
         }
         private void listeCalculs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -72,19 +93,28 @@ namespace ConcreteCS
                     SelectionNone.Visibility = Visibility.Collapsed;
                     Demultiplication.Visibility = Visibility.Visible;
                     Bras.Visibility = Visibility.Collapsed;
-                }
-
-                else if (selectedIndex == 1)
+                    Fleche.Visibility = Visibility.Collapsed;
+                }else if (selectedIndex == 1)
                 {
                     SelectionNone.Visibility = Visibility.Collapsed;
                     Demultiplication.Visibility = Visibility.Collapsed;
                     Bras.Visibility = Visibility.Visible;
+                    Fleche.Visibility = Visibility.Collapsed;
+                }else if (selectedIndex == 2) {
+                    SelectionNone.Visibility = Visibility.Collapsed;
+                    Demultiplication.Visibility = Visibility.Collapsed;
+                    Bras.Visibility = Visibility.Collapsed;
+                    Fleche.Visibility = Visibility.Visible;
                 }
             }
         }
 
+
+
         private void OnCalculateDemuClick(object sender, RoutedEventArgs e)
         {
+            logWriter.LogWrite("Lancement du traitement des calculs de démultiplication");
+
             // Vérification des entrées
             if (double.TryParse(ChargeInput.Text, out double chargeKg) &&
                 int.TryParse(PoulieInput.Text, out int nombrePoulies) &&
@@ -106,17 +136,47 @@ namespace ConcreteCS
                 }
                 else
                 {
+                    logWriter.LogWrite("ERREUR : Le nombre de poulies et le rapport d'engrenage doivent être supérieurs à 0");
                     MessageBox.Show("Le nombre de poulies et le rapport d'engrenage doivent être supérieurs à 0", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
+                logWriter.LogWrite("ERREUR : Veuillez entrer des valeurs numériques valides");
                 MessageBox.Show("Veuillez entrer des valeurs numériques valides", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        private void OnCalculateFlecheClick(object sender, RoutedEventArgs e) {
+            logWriter.LogWrite("Lancement du traitement des calculs de la flèche");
+
+            // Remplacer les virgules par des points dans les entrées
+            string poidsText = PoidsInput.Text.Replace(',', '.');
+            string longueurText = LongueurInput.Text.Replace(',', '.');
+            string youngText = YoungInput.Text.Replace(',', '.');
+            string momentQuadratiqueText = MomentQuadratiqueInput.Text.Replace(',', '.');
+
+            // Vérification des entrées après avoir remplacé les virgules
+            if (double.TryParse(poidsText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double poidsKg) &&
+                double.TryParse(longueurText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double longueur) &&
+                double.TryParse(youngText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double young) &&
+                double.TryParse(momentQuadratiqueText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double momentQuadratique)) {
+
+                // Calcul de la flèche
+                double fleche = ((poidsKg * 9.81) * Math.Pow(longueur, 3)) / (3 * young * momentQuadratique);
+
+                // Affichage du résultat avec 5 chiffres après la virgule
+                ResultFlecheCalculs.Text = fleche.ToString("F5");
+            } else {
+                logWriter.LogWrite("ERREUR : Veuillez entrer des valeurs numériques valides");
+                MessageBox.Show("Veuillez entrer des valeurs numériques valides", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
         private void InitializeChart()
         {
+            logWriter.LogWrite("Initialisation du graphique Force en fonction de la démultiplication");
             MyChart.Series = new SeriesCollection
                 {
                     new LineSeries
@@ -129,6 +189,7 @@ namespace ConcreteCS
 
         private void InitializeChart2()
         {
+            logWriter.LogWrite("Initialisation du graphique Force en fonction des poulies");
             MyChart2.Series = new SeriesCollection
                 {
                     new LineSeries
@@ -141,6 +202,7 @@ namespace ConcreteCS
 
         private void InitializeChart3()
         {
+            logWriter.LogWrite("Initialisation du graphique Force en fonction des engrenages");
             MyChart3.Series = new SeriesCollection
                 {
                     new LineSeries
@@ -153,6 +215,7 @@ namespace ConcreteCS
 
         private void OnSliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double>? e)
         {
+            logWriter.LogWrite("Valeur(s) des sélecteurs de la simulation modifiée(s)");
             // Vérifie que les sliders sont correctement initialisés
             if (ChargeSlider != null && PoulieSlider != null && GearRatioSlider != null && ResultForce != null)
             {
@@ -214,21 +277,38 @@ namespace ConcreteCS
             }
         }
 
+        private void OpenLinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            logWriter.LogWrite("Ouverture du lien externe vers inrs vers les règlementations des charges au travail");
+            string url = "https://www.inrs.fr/risques/activite-physique/ce-qu-il-faut-retenir.html";
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+
+        public void ShowButton()
+        {
+            logWriter.LogWrite("Affichage du bouton En savoir plus");
+            OpenLinkButton.Visibility = Visibility.Visible; // Rendre le bouton visible
+        }
+
+        int compteurAlerte = 0;
         private Alerte alertWindow;
 
         private async void ShowAlert()
         {
+            logWriter.LogWrite("Afficher l'alerte de dépassement du poids reglementaire");
+            compteurAlerte ++;
+
             if (alertWindow == null || !alertWindow.IsVisible)
             {
-                // Créer une instance de la fenêtre d'alerte
                 alertWindow = new Alerte();
-                alertWindow.Show(); // Affiche l'alerte
+                alertWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                alertWindow.Show(); 
+                ShowButton();
 
-                await Task.Delay(3000);
-
-                // Fermer l'alerte
-                alertWindow.Close();
-                alertWindow = null; // Réinitialiser la variable
             }
         }
 
@@ -286,6 +366,43 @@ namespace ConcreteCS
             // Met à jour la dernière force dans le TextBox
             double forceNecessaire = (charge / rapportEngrenage);
             ResultForce.Text = forceNecessaire.ToString("F2") + " N";
+        }
+        
+        private void csvDownload_Click(object sender, EventArgs e)
+        {
+            logWriter.LogWrite("Démarrage de l'export du fichier csv");
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV file (*.csv)|*.csv";
+            saveFileDialog.Title = "Enregistrer les calculs en CSV";
+            saveFileDialog.FileName = "force_calculations.csv";
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                // Récupérer la charge, le nombre de poulies et le rapport d'engrenage
+                double charge = ChargeSlider.Value * 9.81;
+                int nombrePoulies = (int)PoulieSlider.Value;
+                double rapportEngrenage = GearRatioSlider.Value;
+
+                // Créer le fichier CSV
+                using (StreamWriter sw = new StreamWriter(saveFileDialog.FileName))
+                {
+                    // Écrire les en-têtes des colonnes
+                    sw.WriteLine("Nombre de Poulies;Force (N);Rapport d'Engrenage;Force par Engrenage (N)");
+
+                    // Remplir les données pour chaque valeur de poulie
+                    for (int pulleys = 1; pulleys <= nombrePoulies; pulleys++)
+                    {
+                        // Calculer la force pour chaque poulie
+                        double forcePoulie = (charge / pulleys);
+                        double forceEngrenage = charge / (pulleys * rapportEngrenage);
+
+                        // Écrire les données dans le fichier CSV sous forme de ligne
+                        sw.WriteLine($"{pulleys};{forcePoulie:F2};{rapportEngrenage:F2};{forceEngrenage:F2}");
+                    }
+                }
+
+                MessageBox.Show("Le fichier CSV a été enregistré avec succès !");
+            } 
         }
 
         // Mise à jour du nombre de poulies et de la force nécessaire
@@ -523,6 +640,25 @@ namespace ConcreteCS
                 case 5:
                     PulleyScene5.Visibility = Visibility.Visible;
                     break;
+            }
+        }
+        
+        private void OnOpenLogClick(object sender, RoutedEventArgs e) {
+            // Obtenir le chemin de l'exécutable
+            string exePath = System.AppDomain.CurrentDomain.BaseDirectory;
+
+            // Construire le chemin complet du fichier log.txt
+            string logFilePath = System.IO.Path.Combine(exePath, "log.txt");
+
+            // Vérifier si le fichier existe
+            if (File.Exists(logFilePath)) {
+                // Ouvrir le fichier avec Notepad
+                Process.Start(new ProcessStartInfo("notepad.exe", logFilePath) {
+                    UseShellExecute = true
+                });
+            } else {
+                // Afficher un message d'erreur si le fichier n'existe pas
+                MessageBox.Show("Le fichier log.txt n'existe pas.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
