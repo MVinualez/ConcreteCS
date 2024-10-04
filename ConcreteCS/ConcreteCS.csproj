@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="charge.png" />
     <None Remove="cs_team.png" />
+    <None Remove="fleche.png" />
     <None Remove="logo.png" />
     <None Remove="poulie.png" />
   </ItemGroup>
@@ -22,6 +23,7 @@
   <ItemGroup>
     <Resource Include="charge.png" />
     <Resource Include="cs_team.png" />
+    <Resource Include="fleche.png" />
     <Resource Include="logo.png" />
     <Resource Include="poulie.png" />
   </ItemGroup>
