@@ -118,8 +118,7 @@ namespace ConcreteCS
             // Vérification des entrées
             if (double.TryParse(ChargeInput.Text, out double chargeKg) &&
                 int.TryParse(PoulieInput.Text, out int nombrePoulies) &&
-                double.TryParse(GearRatioInput.Text, out double rapportEngrenage) &&
-                int.TryParse(AgeInput.Text, out int age))
+                double.TryParse(GearRatioInput.Text, out double rapportEngrenage))
             {
                 string genre = HommeRadioButton.IsChecked == true ? "Homme" : "Femme";
 
